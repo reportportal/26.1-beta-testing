@@ -1,0 +1,16 @@
+{
+  "name": "booking-playwright-rp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright automation for TMS folder 90 (Search & Filters) against booking.com, showcasing ReportPortal reporting capabilities.",
+  "scripts": {
+    "test": "npx playwright test --config=playwright.config.ts",
+    "test:headed": "npx playwright test --config=playwright.config.ts --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@reportportal/agent-js-playwright": "5.4.2",
+    "@types/node": "^22.7.4",
+    "dotenv": "^17.4.2"
+  }
+}
