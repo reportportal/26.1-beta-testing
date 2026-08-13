@@ -1,0 +1,28 @@
+{
+  "id": "ch_3QhK2t2eZvKYlo2C0abc1234",
+  "object": "charge",
+  "amount": 41200,
+  "currency": "eur",
+  "status": "failed",
+  "failure_code": "card_declined",
+  "failure_message": "Your card was declined.",
+  "outcome": {
+    "network_status": "declined_by_network",
+    "reason": "generic_decline",
+    "seller_message": "The bank returned the decline code `generic_decline`.",
+    "type": "issuer_declined"
+  },
+  "payment_method_details": {
+    "card": {
+      "brand": "visa",
+      "last4": "0002",
+      "exp_month": 12,
+      "exp_year": 2028
+    }
+  },
+  "booking": {
+    "reference": "BK-2026-004891",
+    "status": "CONFIRMED",
+    "emailQueued": true
+  }
+}

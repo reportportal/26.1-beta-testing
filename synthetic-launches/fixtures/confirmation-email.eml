@@ -1,0 +1,19 @@
+From: Mail Delivery Subsystem <mailer-daemon@staging.travelbook.example>
+To: test.user@example.com
+Subject: Undelivered Mail Returned to Sender
+Date: Thu, 13 Aug 2026 08:16:04 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+The confirmation email for booking BK-2026-004521 could not be delivered.
+
+Diagnostic:
+  connect ECONNREFUSED 10.32.8.14:2525
+  mailhog.staging.svc:8025 unreachable after 120000ms
+  retries exhausted (3/3)
+
+Original intended payload:
+  Subject: Your TravelBook reservation BK-2026-004521 is confirmed
+  Hotel: Hotel Le Petit Palais, 12 Rue de Rivoli, 75001 Paris
+  Stay: 14 Aug 2026 – 16 Aug 2026
+  Manage: https://staging.travelbook.example/trips/BK-2026-004521

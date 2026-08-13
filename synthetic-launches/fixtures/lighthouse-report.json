@@ -1,0 +1,48 @@
+{
+  "lighthouseVersion": "11.4.0",
+  "requestedUrl": "https://staging.travelbook.example/search?dest=Paris&checkIn=2026-08-18&checkOut=2026-08-20",
+  "finalUrl": "https://staging.travelbook.example/search?dest=Paris&checkIn=2026-08-18&checkOut=2026-08-20",
+  "fetchTime": "2026-08-13T08:14:22.000Z",
+  "configSettings": {
+    "formFactor": "desktop",
+    "throttlingMethod": "simulate",
+    "screenEmulation": {
+      "disabled": false,
+      "width": 1350,
+      "height": 940
+    }
+  },
+  "audits": {
+    "first-contentful-paint": {
+      "id": "first-contentful-paint",
+      "title": "First Contentful Paint",
+      "numericValue": 2847,
+      "numericUnit": "millisecond",
+      "displayValue": "2.8 s",
+      "score": 0.42
+    },
+    "largest-contentful-paint": {
+      "id": "largest-contentful-paint",
+      "title": "Largest Contentful Paint",
+      "numericValue": 3612,
+      "numericUnit": "millisecond",
+      "displayValue": "3.6 s",
+      "score": 0.31
+    },
+    "interactive": {
+      "id": "interactive",
+      "title": "Time to Interactive",
+      "numericValue": 3188,
+      "numericUnit": "millisecond",
+      "displayValue": "3.2 s",
+      "score": 0.55
+    }
+  },
+  "categories": {
+    "performance": {
+      "id": "performance",
+      "title": "Performance",
+      "score": 0.48
+    }
+  }
+}

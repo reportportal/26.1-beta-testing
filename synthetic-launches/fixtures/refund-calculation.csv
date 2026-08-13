@@ -1,0 +1,2 @@
+booking_id,original_nights,original_total_eur,nightly_rate_eur,nights_removed,expected_refund_eur,displayed_refund_eur,payment_method
+BK-REF-1004,3,534.00,178.00,1,178.00,89.00,Visa •••• 1111

@@ -1,0 +1,2644 @@
+{
+  "info": {
+    "_postman_id": "0edc9c66-0970-4231-a5b0-d94548f89919",
+    "name": "Stream A - Cancellations & Mobile",
+    "description": "**Nightly regression - Cancellations & Mobile** \u2014 triggered by merge to `release/26.1.0`\n\n[CI job#1842](https://ci.travelbook.example/job/stream-a-mobile/1842/) \u2014 [diff 7c2a91e -> 4e8b0c3](https://git.travelbook.example/qa/mobile-tests/compare/7c2a91e...4e8b0c3) \u2014 [Test plan TMS folder 93+95](https://tms.beta.reportportal.io) \u2014 [Staging](https://staging.travelbook.example)\n\nScope: Cancellations & Modifications (6), Mobile Booking (6). Runner: WebdriverIO 8 / Appium 2. Stack: Android + iOS + mobile web.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Generate token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"token\", jsonData.access_token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{host}}/uat/sso/oauth/token",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "uat",
+            "sso",
+            "oauth",
+            "token"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start launch",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_launch_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/launch",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "launch"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Nightly regression - Cancellations & Mobile** \\u2014 triggered by merge to `release/26.1.0`\\n\\n[CI job#1842](https://ci.travelbook.example/job/stream-a-mobile/1842/) \\u2014 [diff 7c2a91e -> 4e8b0c3](https://git.travelbook.example/qa/mobile-tests/compare/7c2a91e...4e8b0c3) \\u2014 [Test plan TMS folder 93+95](https://tms.beta.reportportal.io) \\u2014 [Staging](https://staging.travelbook.example)\\n\\nScope: Cancellations & Modifications (6), Mobile Booking (6). Runner: WebdriverIO 8 / Appium 2. Stack: Android + iOS + mobile web.\",\n  \"name\": \"Nightly regression - Cancellations & Mobile\",\n  \"startTime\": \"{{date}}\",\n  \"mode\": \"DEFAULT\",\n  \"rerun\": false,\n  \"attributes\": [\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"key\": \"team\",\n      \"value\": \"mobile-qa\"\n    },\n    {\n      \"key\": \"component\",\n      \"value\": \"cancellations\"\n    },\n    {\n      \"key\": \"platform\",\n      \"value\": \"android\"\n    },\n    {\n      \"key\": \"env\",\n      \"value\": \"staging\"\n    },\n    {\n      \"key\": \"version\",\n      \"value\": \"26.1.0\"\n    },\n    {\n      \"key\": \"build\",\n      \"value\": \"26.1.0-b1842\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"regression\"\n    },\n    {\n      \"key\": \"retentionPolicy\",\n      \"value\": \"regular\",\n      \"system\": true\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start Suite: Cancellations & Modifications",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_suite_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"TMS folder 93 \\u2014 cancel, refund and date-change flows.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"Cancellations & Modifications\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"SUITE\",\n  \"attributes\": [\n    {\n      \"key\": \"tms-folder\",\n      \"value\": \"93\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-BOOK-023",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** Confirmed refundable booking BK-REF-1001 exists; free cancellation allowed until 24 h before check-in.\\n\\n**Expected result:** User can cancel the booking from My trips; status changes to Cancelled; full refund message is displayed and confirmation email is sent.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-BOOK-023] Cancel refundable booking within policy window\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-BOOK-023\",\n  \"codeRef\": \"wdio/specs/cancellation/cancel-refundable.spec.js:14\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"HIGH\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Cancellation\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Maya Chen\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"cancellation\"\n    },\n    {\n      \"value\": \"smoke\"\n    },\n    {\n      \"value\": \"booking\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-BOOK-023",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-BOOK-023 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-BOOK-023",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"passed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-BOOK-025",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** User is on checkout review step before payment.\\n\\n**Expected result:** Cancellation policy (deadline, refund type, and penalty if any) is visible on checkout and must be acknowledged before payment can be submitted.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-BOOK-025] Display cancellation policy before payment\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-BOOK-025\",\n  \"codeRef\": \"wdio/specs/cancellation/policy-on-checkout.spec.js:21\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"MEDIUM\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Cancellation\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Maya Chen\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"smoke\"\n    },\n    {\n      \"value\": \"cancellation\"\n    },\n    {\n      \"value\": \"booking\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-BOOK-025",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-BOOK-025 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-BOOK-025",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"passed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-BOOK-028",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** Refundable booking BK-REF-1004 allows partial refund when shortening stay; user shortens by one night.\\n\\n**Expected result:** After shortening the stay, the modification summary shows nights removed, updated total, and partial refund amount to be returned to the original payment method.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-BOOK-028] Partial refund amount shown after date modification\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-BOOK-028\",\n  \"codeRef\": \"wdio/specs/cancellation/partial-refund.spec.js:91\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"MEDIUM\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Cancellation\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Maya Chen\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"payment\"\n    },\n    {\n      \"value\": \"booking\"\n    },\n    {\n      \"value\": \"cancellation\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-BOOK-028",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-BOOK-028 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-BOOK-028",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"failed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"issue\": {\n    \"autoAnalyzed\": false,\n    \"comment\": \"\",\n    \"ignoreAnalyzer\": false,\n    \"issueType\": \"ti001\"\n  }\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-BOOK-024",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** Active booking BK-REF-1002 with free date-change policy; alternative dates have availability.\\n\\n**Expected result:** Dates update successfully; booking summary reflects new check-out date and recalculated total; confirmation of modification is shown.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-BOOK-024] Modify stay dates for an existing reservation\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-BOOK-024\",\n  \"codeRef\": \"wdio/specs/cancellation/change-dates.spec.js:18\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"HIGH\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Cancellation\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Maya Chen\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"booking\"\n    },\n    {\n      \"value\": \"regression\"\n    },\n    {\n      \"value\": \"dates\"\n    },\n    {\n      \"value\": \"cancellation\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-BOOK-024",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-BOOK-024 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-BOOK-024",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"passed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-BOOK-026",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** Confirmed non-refundable booking BK-NRF-2001 exists; check-in is more than 7 days away.\\n\\n**Expected result:** System warns that no refund will be issued; after confirmation, booking status becomes Cancelled with EUR 0 refund; user receives cancellation email stating non-refundable terms.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-BOOK-026] Attempt cancellation of non-refundable reservation\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-BOOK-026\",\n  \"codeRef\": \"wdio/specs/cancellation/non-refundable.spec.js:112\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"HIGH\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Cancellation\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Negative\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Maya Chen\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"cancellation\"\n    },\n    {\n      \"value\": \"booking\"\n    },\n    {\n      \"value\": \"negative\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-BOOK-026",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-BOOK-026 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-BOOK-026",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"failed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"issue\": {\n    \"autoAnalyzed\": false,\n    \"comment\": \"\",\n    \"ignoreAnalyzer\": false,\n    \"issueType\": \"ti001\"\n  }\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-BOOK-027",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** Booking BK-REF-1003 has free-change deadline yesterday; check-in is in 3 days.\\n\\n**Expected result:** Date change is blocked or requires a change fee clearly displayed; booking dates remain unchanged if modification is not confirmed with fee payment.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-BOOK-027] Modify booking after free-change cutoff has passed\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-BOOK-027\",\n  \"codeRef\": \"wdio/specs/cancellation/cutoff-fee.spec.js:33\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"LOW\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Cancellation\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Edge\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Maya Chen\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"cancellation\"\n    },\n    {\n      \"value\": \"dates\"\n    },\n    {\n      \"value\": \"edge\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-BOOK-027",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-BOOK-027 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-BOOK-027",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"passed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish Suite: Cancellations & Modifications",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start Suite: Mobile Booking (Demo)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_suite_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"TMS folder 95 \\u2014 iOS / Android / mobile-web booking demo.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"Mobile Booking (Demo)\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"SUITE\",\n  \"attributes\": [\n    {\n      \"key\": \"tms-folder\",\n      \"value\": \"95\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-MOB-001",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** User has TravelBook iOS app installed.\\n\\n**Expected result:** App opens on home screen with search widget visible.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-MOB-001] Open booking app on iOS\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-MOB-001\",\n  \"codeRef\": \"wdio/specs/mobile/ios-launch.spec.js:9\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"HIGH\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Mobile\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Luca Rossi\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"mobile\"\n    },\n    {\n      \"value\": \"demo\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-MOB-001",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-MOB-001 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-MOB-001",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"passed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-MOB-002",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** Mobile browser on staging.\\n\\n**Expected result:** Only 4\\u2605+ hotels shown.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-MOB-002] Search hotels on mobile web\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-MOB-002\",\n  \"codeRef\": \"wdio/specs/mobile/search-hotels.spec.js:58\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"HIGH\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Mobile\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Luca Rossi\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"mobile\"\n    },\n    {\n      \"value\": \"demo\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-MOB-002",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-MOB-002 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-MOB-002",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"failed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"issue\": {\n    \"autoAnalyzed\": false,\n    \"comment\": \"\",\n    \"ignoreAnalyzer\": false,\n    \"issueType\": \"ti001\"\n  }\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-MOB-003",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** Android device with Google Pay configured.\\n\\n**Expected result:** Confirmation screen with reference.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-MOB-003] Complete booking on Android\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-MOB-003\",\n  \"codeRef\": \"wdio/specs/mobile/android-booking.spec.js:24\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"CRITICAL\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Mobile\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Luca Rossi\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"mobile\"\n    },\n    {\n      \"value\": \"demo\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-MOB-003",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-MOB-003 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-MOB-003",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"passed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-MOB-004",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** Booking completed on mobile.\\n\\n**Expected result:** Push notification received within 60 seconds.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-MOB-004] Push notification for booking confirmation\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-MOB-004\",\n  \"codeRef\": \"wdio/specs/mobile/push-confirmation.spec.js:44\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"MEDIUM\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Mobile\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Luca Rossi\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"mobile\"\n    },\n    {\n      \"value\": \"demo\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-MOB-004",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-MOB-004 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-MOB-004",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"failed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"issue\": {\n    \"autoAnalyzed\": false,\n    \"comment\": \"\",\n    \"ignoreAnalyzer\": false,\n    \"issueType\": \"ti001\"\n  }\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-MOB-005",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** User has confirmed booking cached locally.\\n\\n**Expected result:** Itinerary details visible without network.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-MOB-005] Offline mode \\u2014 view saved itinerary\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-MOB-005\",\n  \"codeRef\": \"wdio/specs/mobile/offline-itinerary.spec.js:17\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"LOW\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Mobile\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Luca Rossi\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"demo\"\n    },\n    {\n      \"value\": \"mobile\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-MOB-005",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-MOB-005 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-MOB-005",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"passed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Start TMS-MOB-006",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_step_uuid\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"**Preconditions:** iOS device with wallet card enrolled.\\n\\n**Expected result:** Payment succeeds.\",\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"name\": \"[TMS-MOB-006] Mobile payment with Apple Pay\",\n  \"startTime\": \"{{date}}\",\n  \"type\": \"STEP\",\n  \"retry\": false,\n  \"testCaseId\": \"TMS-MOB-006\",\n  \"codeRef\": \"wdio/specs/mobile/apple-pay.spec.js:28\",\n  \"attributes\": [\n    {\n      \"key\": \"priority\",\n      \"value\": \"HIGH\"\n    },\n    {\n      \"key\": \"area\",\n      \"value\": \"Mobile\"\n    },\n    {\n      \"key\": \"type\",\n      \"value\": \"Functional\"\n    },\n    {\n      \"key\": \"author\",\n      \"value\": \"Luca Rossi\"\n    },\n    {\n      \"key\": \"stream\",\n      \"value\": \"A\"\n    },\n    {\n      \"value\": \"demo\"\n    },\n    {\n      \"value\": \"mobile\"\n    }\n  ]\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Info log for TMS-MOB-006",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.environment.set(\"current_log_id\", jsonData.id);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/log",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "log"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"launchUuid\": \"{{current_launch_uuid}}\",\n  \"itemUuid\": \"{{current_step_uuid}}\",\n  \"time\": \"{{date}}\",\n  \"level\": \"info\",\n  \"message\": \"placeholder log for TMS-MOB-006 (replaced on replay)\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish TMS-MOB-006",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_step_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_step_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"status\": \"passed\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish Suite: Mobile Booking (Demo)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"date\", new Date());"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/item/{{current_suite_uuid}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "item",
+            "{{current_suite_uuid}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{date}}\",\n  \"launchUuid\": \"{{current_launch_uuid}}\"\n}"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Finish launch",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"datePlus\", new Date().getTime()+6000);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "    pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "    });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{url}}/{{project}}/launch/{{current_launch_uuid}}/finish",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "{{project}}",
+            "launch",
+            "{{current_launch_uuid}}",
+            "finish"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"endTime\": \"{{datePlus}}\"\n}"
+        }
+      },
+      "response": []
+    }
+  ]
+}
