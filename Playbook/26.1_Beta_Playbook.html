@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReportPortal 26.1 Beta Playbook</title>
+  <style>
+    :root {
+      --rp-topaz: #00829b;
+      --rp-topaz-hover: #009dbb;
+      --rp-topaz-light: #e5f5f8;
+      --rp-green: #3aa76d;
+      --rp-green-dark: #1c8b50;
+      --rp-red: #dc5959;
+      --rp-red-dark: #d32f2f;
+      --rp-yellow: #ffc208;
+      --rp-bg: #f7f7f8;
+      --rp-bg-200: #eceff4;
+      --rp-white: #ffffff;
+      --rp-text: #3f3f3f;
+      --rp-text-muted: #8d95a1;
+      --rp-border: #e3e7ec;
+      --rp-charcoal: #464547;
+      --rp-tag-key-bg: #dac3e6;
+      --rp-tag-key-text: #6f4599;
+      --rp-tag-value-bg: #ced8fc;
+      --rp-tag-value-text: #394db6;
+      --rp-shadow: 0 1px 3px rgba(55, 67, 98, 0.1);
+      --font-body: Roboto, Arial, Helvetica, sans-serif;
+      --font-heading: "Segoe UI", OpenSans, Tahoma, sans-serif;
+      --nav-width: 272px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--rp-text);
+      background: var(--rp-bg);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: var(--nav-width) 1fr;
+      min-height: 100vh;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--rp-white);
+      border-right: 1px solid var(--rp-border);
+      padding: 1.5rem 0;
+    }
+    nav .brand { padding: 0 1.25rem 1.25rem; border-bottom: 1px solid var(--rp-border); margin-bottom: 1rem; }
+    nav .brand .logo {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--rp-topaz);
+      letter-spacing: -0.02em;
+    }
+    nav .brand .sub { font-size: 0.75rem; color: var(--rp-text-muted); margin-top: 0.25rem; }
+    nav ul { list-style: none; }
+    nav li a {
+      display: block;
+      padding: 0.4rem 1.25rem;
+      color: var(--rp-charcoal);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+    }
+    nav li a:hover { background: var(--rp-topaz-light); color: var(--rp-topaz); }
+    nav li a.active { border-left-color: var(--rp-topaz); color: var(--rp-topaz); font-weight: 500; }
+    nav .section-label {
+      padding: 0.75rem 1.25rem 0.35rem;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--rp-text-muted);
+      font-weight: 600;
+    }
+
+    main { padding: 0; max-width: 960px; }
+
+    .hero {
+      background: linear-gradient(135deg, #00505d 0%, var(--rp-topaz) 45%, var(--rp-topaz-hover) 100%);
+      color: white;
+      padding: 3rem 2.5rem 2.5rem;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 999px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.04em;
+    }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.03em;
+    }
+    .hero p { font-size: 1.05rem; opacity: 0.92; max-width: 680px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; font-size: 0.85rem; }
+    .hero-meta a { color: white; text-decoration: underline; text-underline-offset: 3px; }
+
+    .content { padding: 2rem 2.5rem 4rem; }
+    section { margin-bottom: 3rem; scroll-margin-top: 1rem; }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      color: var(--rp-charcoal);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--rp-topaz-light);
+    }
+    h3 { font-family: var(--font-heading); font-size: 1.1rem; color: var(--rp-topaz); margin: 1.5rem 0 0.6rem; }
+    h4 { font-size: 0.95rem; color: var(--rp-charcoal); margin: 1rem 0 0.4rem; }
+    p { margin-bottom: 0.85rem; }
+    a { color: var(--rp-topaz); }
+    a:hover { color: var(--rp-topaz-hover); }
+
+    .flow { display: flex; align-items: stretch; gap: 0; margin: 1.5rem 0; flex-wrap: wrap; }
+    .flow-step {
+      flex: 1;
+      min-width: 140px;
+      background: var(--rp-white);
+      border: 1px solid var(--rp-border);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: var(--rp-shadow);
+    }
+    .flow-step .num {
+      width: 28px; height: 28px;
+      background: var(--rp-topaz); color: white;
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem;
+    }
+    .flow-step strong { display: block; font-size: 0.88rem; margin-bottom: 0.25rem; }
+    .flow-step span { font-size: 0.76rem; color: var(--rp-text-muted); }
+    .flow-arrow { display: flex; align-items: center; color: var(--rp-topaz); font-size: 1.4rem; padding: 0 0.25rem; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin: 1rem 0; }
+    .card {
+      background: var(--rp-white);
+      border: 1px solid var(--rp-border);
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+      box-shadow: var(--rp-shadow);
+    }
+    .card h4 { margin-top: 0; color: var(--rp-topaz); }
+    .card .id { font-size: 0.72rem; color: var(--rp-text-muted); font-family: monospace; margin-bottom: 0.35rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin: 1rem 0;
+      background: var(--rp-white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--rp-shadow);
+    }
+    th {
+      background: var(--rp-topaz-light);
+      color: var(--rp-topaz);
+      text-align: left;
+      padding: 0.65rem 0.9rem;
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--rp-border); vertical-align: top; }
+    tr:hover td { background: #fafbfc; }
+
+    .status {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .status-passed { background: #e6f4ec; color: var(--rp-green-dark); }
+    .status-failed { background: #fdeaea; color: var(--rp-red-dark); }
+    .status-skipped { background: #f0f0f0; color: #666; }
+    .status-torun { background: var(--rp-topaz-light); color: var(--rp-topaz); }
+    .status-progress { background: #fff8e6; color: #b8860b; }
+    .status-done { background: #e6f4ec; color: var(--rp-green-dark); }
+    .status-stream-a { background: var(--rp-topaz-light); color: var(--rp-topaz); }
+    .status-stream-b { background: var(--rp-tag-value-bg); color: var(--rp-tag-value-text); }
+    .status-stream-c { background: var(--rp-tag-key-bg); color: var(--rp-tag-key-text); }
+
+    .tag {
+      display: inline-block;
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      margin: 0.1rem 0.15rem 0.1rem 0;
+    }
+    .tag-key { background: var(--rp-tag-key-bg); color: var(--rp-tag-key-text); }
+    .tag-val { background: var(--rp-tag-value-bg); color: var(--rp-tag-value-text); }
+
+    .callout { border-radius: 10px; padding: 1rem 1.2rem; margin: 1rem 0; font-size: 0.9rem; }
+    .callout-info { background: var(--rp-topaz-light); border-left: 4px solid var(--rp-topaz); }
+    .callout-warn { background: #fff8e6; border-left: 4px solid var(--rp-yellow); }
+    .callout-tip { background: #e6f4ec; border-left: 4px solid var(--rp-green); }
+    .callout-pending { background: #f6eefb; border-left: 4px solid var(--rp-tag-key-text); }
+    .callout strong { display: block; margin-bottom: 0.35rem; }
+
+    ol.steps { counter-reset: step; list-style: none; margin: 1rem 0; }
+    ol.steps > li {
+      counter-increment: step;
+      position: relative;
+      padding: 0 0 1.25rem 2.75rem;
+      border-left: 2px solid var(--rp-border);
+      margin-left: 0.9rem;
+    }
+    ol.steps > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+    ol.steps > li::before {
+      content: counter(step);
+      position: absolute;
+      left: -0.9rem; top: 0;
+      width: 1.75rem; height: 1.75rem;
+      background: var(--rp-topaz); color: white;
+      border-radius: 50%;
+      font-size: 0.8rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .tour {
+      background: var(--rp-white);
+      border: 1px solid var(--rp-border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0;
+      box-shadow: var(--rp-shadow);
+    }
+    .tour-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .tour-num {
+      background: linear-gradient(135deg, var(--rp-topaz), var(--rp-topaz-hover));
+      color: white;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; flex-shrink: 0;
+    }
+    .tour h3 { margin: 0; font-size: 1rem; }
+
+    code {
+      background: var(--rp-bg-200);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: var(--rp-charcoal);
+    }
+    pre {
+      background: var(--rp-charcoal);
+      color: #f7f7f8;
+      padding: 1rem 1.15rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin: 0.75rem 0 1rem;
+    }
+    pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+
+    .btn {
+      display: inline-block;
+      background: var(--rp-topaz);
+      color: white !important;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin: 0.25rem 0.5rem 0.25rem 0;
+    }
+    .btn:hover { background: var(--rp-topaz-hover); }
+    .btn-outline {
+      background: transparent;
+      color: var(--rp-topaz) !important;
+      border: 1px solid var(--rp-topaz);
+    }
+    .btn-outline:hover { background: var(--rp-topaz-light); }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rp-border);
+      font-size: 0.8rem;
+      color: var(--rp-text-muted);
+    }
+
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+      nav { position: relative; height: auto; }
+      .hero { padding: 2rem 1.25rem; }
+      .content { padding: 1.5rem 1.25rem 3rem; }
+      .flow-arrow { display: none; }
+    }
+    @media print {
+      nav { display: none; }
+      .layout { grid-template-columns: 1fr; }
+      .hero { background: var(--rp-topaz); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">
+        <div class="logo">ReportPortal</div>
+        <div class="sub">26.1 Beta Playbook</div>
+      </div>
+      <div class="section-label">Overview</div>
+      <ul>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#flow">Recommended flow</a></li>
+        <li><a href="#access">Access &amp; your organization</a></li>
+      </ul>
+      <div class="section-label">Organizations</div>
+      <ul>
+        <li><a href="#org">Open your organization</a></li>
+        <li><a href="#streams">Stream A &amp; Stream B</a></li>
+        <li><a href="#stream-c">Create Stream C</a></li>
+        <li><a href="#users">Invite users</a></li>
+      </ul>
+      <div class="section-label">TravelBook TMS</div>
+      <ul>
+        <li><a href="#library">Test Case Library</a></li>
+        <li><a href="#playbook-ids">Playbook test IDs</a></li>
+        <li><a href="#planning">Milestones &amp; plans</a></li>
+        <li><a href="#launches">Manual launches</a></li>
+      </ul>
+      <div class="section-label">Guided tours</div>
+      <ul>
+        <li><a href="#tour-smoke">Tour A — Smoke</a></li>
+        <li><a href="#tour-failures">Tour B — Failures</a></li>
+        <li><a href="#tour-stream-c">Tour C — Stream C</a></li>
+      </ul>
+      <div class="section-label">MCP &amp; AI</div>
+      <ul>
+        <li><a href="#mcp-setup">Configure MCP</a></li>
+        <li><a href="#mcp-tms">TMS via MCP</a></li>
+        <li><a href="#dashboard">Portfolio dashboard</a></li>
+      </ul>
+      <div class="section-label">Reference</div>
+      <ul>
+        <li><a href="#tips">Tips</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <header class="hero" id="intro">
+        <span class="badge">Self-guided · Organizations · TMS · MCP</span>
+        <h1>26.1 Beta Playbook</h1>
+        <p>
+          Try the new <strong>Organizations</strong> model and <strong>Test Management (TMS)</strong> on a synthetic hotel-booking product.
+          Your organization already contains <strong>Stream A</strong> and <strong>Stream B</strong>. You will create <strong>Stream C</strong>,
+          add test cases, run TMS via MCP, and build a cross-project quality dashboard.
+        </p>
+        <div class="hero-meta">
+          <span>Instance: <a href="https://tms.beta.reportportal.io/ui/#organizations" target="_blank" rel="noopener">tms.beta.reportportal.io</a></span>
+          <span>Product: <strong>TravelBook</strong></span>
+          <span>Repo: <a href="https://github.com/reportportal/26.1-beta-testing" target="_blank" rel="noopener">26.1-beta-testing</a></span>
+        </div>
+      </header>
+
+      <div class="content">
+
+        <section id="flow">
+          <h2>Recommended flow</h2>
+          <p>Work through the playbook in this order. Each step builds on the previous one.</p>
+          <div class="flow">
+            <div class="flow-step">
+              <div class="num">1</div>
+              <strong>Your organization</strong>
+              <span>Open Stream A &amp; B</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="num">2</div>
+              <strong>Explore TMS</strong>
+              <span>Library → plans → launches</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="num">3</div>
+              <strong>Create Stream C</strong>
+              <span>Project + your test cases</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="num">4</div>
+              <strong>TMS + MCP</strong>
+              <span>Cases, plan, launch</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <div class="num">5</div>
+              <strong>Portfolio dashboard</strong>
+              <span>Manual · Auto · Agentic</span>
+            </div>
+          </div>
+          <div class="callout callout-info">
+            <strong>One playbook for every client</strong>
+            Case names and IDs (<code>TMS-BOOK-001</code>, …) are the same in every organization. Numeric folder IDs and display IDs such as <code>TC137</code> are not — always search by the <code>TMS-BOOK-*</code> / <code>TMS-MOB-*</code> prefix in the case name.
+          </div>
+        </section>
+
+        <section id="access">
+          <h2>Access &amp; your organization</h2>
+          <p>
+            Sign in to the public beta instance. ReportPortal creates a <em>Personal</em> organization for every user.
+            For this beta you also receive a <strong>dedicated organization</strong> (named by your ReportPortal contact) with TravelBook data already loaded.
+          </p>
+          <table>
+            <tr><th>Item</th><th>Value</th></tr>
+            <tr>
+              <td>URL</td>
+              <td><a href="https://tms.beta.reportportal.io/ui/#organizations" target="_blank" rel="noopener">https://tms.beta.reportportal.io/ui/#organizations</a></td>
+            </tr>
+            <tr>
+              <td>Your organization</td>
+              <td>The org provisioned for your company — not the tile labelled <em>Personal</em></td>
+            </tr>
+            <tr>
+              <td>Preloaded projects</td>
+              <td><span class="status status-stream-a">Stream A</span> · <span class="status status-stream-b">Stream B</span></td>
+            </tr>
+            <tr>
+              <td>You create</td>
+              <td><span class="status status-stream-c">Stream C</span></td>
+            </tr>
+            <tr>
+              <td>MCP endpoint</td>
+              <td><code>https://tms.beta.reportportal.io/mcp</code></td>
+            </tr>
+            <tr>
+              <td>This repository</td>
+              <td><a href="https://github.com/reportportal/26.1-beta-testing" target="_blank" rel="noopener">github.com/reportportal/26.1-beta-testing</a></td>
+            </tr>
+          </table>
+          <div class="callout callout-tip">
+            <strong>This is your copy of the data</strong>
+            Feel free to explore, edit cases, create launches, and add Stream C content. Every client org starts from the same TravelBook set. Do not delete the whole library if you still want to follow the tours below.
+          </div>
+        </section>
+
+        <section id="org">
+          <h2>Open your organization</h2>
+          <p>
+            26.1 groups projects inside an organization so each stream / team keeps its own results and access,
+            while a Test Lead can still roll quality up across the org.
+          </p>
+          <ol class="steps">
+            <li>
+              <strong>Open All Organizations</strong><br />
+              After sign-in you land on
+              <a href="https://tms.beta.reportportal.io/ui/#organizations" target="_blank" rel="noopener">All Organizations</a>.
+              Each tile is a separate org. Personal orgs show a person icon.
+            </li>
+            <li>
+              <strong>Open the organization you were given for beta</strong><br />
+              Ignore <em>Personal</em> tiles unless you want a sandbox of your own. The TravelBook dataset lives in the dedicated org.
+            </li>
+            <li>
+              <strong>Check the sidebar</strong><br />
+              Confirm <em>Projects</em> and <em>Organization users</em> are available.
+            </li>
+          </ol>
+        </section>
+
+        <section id="streams">
+          <h2>Stream A &amp; Stream B (preloaded)</h2>
+          <p>
+            TravelBook’s Booking Flow library is split across two projects so you can see Organizations in a realistic multi-stream setup.
+            Stream A also has <strong>agentic</strong> results; Stream B has manual + automation only.
+          </p>
+          <div class="card-grid">
+            <div class="card">
+              <div class="id">Project · Stream A</div>
+              <h4>Search, cancellations, mobile</h4>
+              <p><strong>21 cases</strong> · Manual + Automation + Agentic</p>
+              <p>
+                Folders: <em>Search &amp; Filters</em> (9), <em>Cancellations &amp; Modifications</em> (6),
+                <em>Mobile Booking</em> (6).
+              </p>
+              <p>Playwright demo for Search &amp; Filters is in this repo under <code>booking-playwright-rp/</code>.</p>
+            </div>
+            <div class="card">
+              <div class="id">Project · Stream B</div>
+              <h4>Checkout, payment, performance</h4>
+              <p><strong>15 cases</strong> · Manual + Automation</p>
+              <p>
+                Folders: <em>Booking Flow</em> (14), <em>Non-functional</em> (1).
+              </p>
+              <p>Happy-path payment and negative payment cases live here.</p>
+            </div>
+          </div>
+          <table>
+            <tr><th>Folder</th><th>Project</th><th>Cases</th><th>Testing types in the project</th></tr>
+            <tr>
+              <td>Search &amp; Filters</td>
+              <td><span class="status status-stream-a">Stream A</span></td>
+              <td>TMS-BOOK-001 … 009</td>
+              <td>Manual, automation, agentic candidates</td>
+            </tr>
+            <tr>
+              <td>Cancellations &amp; Modifications</td>
+              <td><span class="status status-stream-a">Stream A</span></td>
+              <td>TMS-BOOK-023 … 028</td>
+              <td>Manual + automation</td>
+            </tr>
+            <tr>
+              <td>Mobile Booking</td>
+              <td><span class="status status-stream-a">Stream A</span></td>
+              <td>TMS-MOB-001 … 006</td>
+              <td>Manual (good for live execution)</td>
+            </tr>
+            <tr>
+              <td>Booking Flow</td>
+              <td><span class="status status-stream-b">Stream B</span></td>
+              <td>TMS-BOOK-010 … 022, 029</td>
+              <td>Manual + automation</td>
+            </tr>
+            <tr>
+              <td>Non-functional</td>
+              <td><span class="status status-stream-b">Stream B</span></td>
+              <td>TMS-BOOK-030</td>
+              <td>Automation / SLA check</td>
+            </tr>
+          </table>
+        </section>
+
+        <section id="stream-c">
+          <h2>Create Stream C and add test cases</h2>
+          <p>
+            Stream C is empty on purpose. Create it as a third team (for example Loyalty &amp; Reviews) so the organization has three projects
+            before you build the portfolio dashboard.
+          </p>
+          <ol class="steps">
+            <li>
+              <strong>Create the project</strong><br />
+              In your organization open <em>Projects</em> → <strong>Create project</strong>. Name it <code>Stream C</code>.
+              Open it and join / assign yourself if prompted.
+            </li>
+            <li>
+              <strong>Open Test Case Library</strong><br />
+              From the project sidebar open <em>Test Case Library</em> → create a folder <strong>Loyalty &amp; Reviews</strong>.
+            </li>
+            <li>
+              <strong>Create two cases in the UI</strong> (copy the names so later MCP steps stay consistent):
+              <table>
+                <tr><th>Suggested name</th><th>Type</th><th>What to put in the scenario</th></tr>
+                <tr>
+                  <td><code>[TMS-LOY-001] Earn loyalty points after a confirmed booking</code></td>
+                  <td>Text</td>
+                  <td>After booking BK-2026-004521, the traveler’s loyalty balance increases by the stay’s point value.</td>
+                </tr>
+                <tr>
+                  <td><code>[TMS-LOY-002] Redeem points at checkout</code></td>
+                  <td>Steps</td>
+                  <td>Open checkout → apply points → total decreases → remaining cash amount is shown.</td>
+                </tr>
+              </table>
+            </li>
+            <li>
+              <strong>Open a case</strong> and confirm name, tags (e.g. <span class="tag tag-key">loyalty</span>), and scenario type.
+              You will add more cases via MCP in <a href="#mcp-tms">TMS via MCP</a>.
+            </li>
+          </ol>
+        </section>
+
+        <section id="users">
+          <h2>Assign a user to the organization and projects</h2>
+          <p>User management is organization-scoped: one place to invite a colleague and set access per project.</p>
+          <ol class="steps">
+            <li>In your organization open <em>Organization users</em>.</li>
+            <li>Click <strong>Invite user</strong> / <strong>Assign user</strong> and enter a colleague’s email.</li>
+            <li>Keep the organization role as <strong>Member</strong>.</li>
+            <li>Add Stream A, Stream B, and Stream C. Set <em>View only</em> or <em>Can edit</em> per project.</li>
+            <li>Confirm. The user appears in the list only after they follow the invite link.</li>
+          </ol>
+        </section>
+
+        <section id="library">
+          <h2>Part 1 — Test Case Library</h2>
+          <p>
+            The library is the source of truth for manual scenarios. Open <strong>Stream A</strong> first, then repeat in <strong>Stream B</strong>.
+          </p>
+          <ol class="steps">
+            <li>
+              <strong>Open Stream A → Test Case Library</strong><br />
+              Browse <em>Search &amp; Filters</em>, then open <code>[TMS-BOOK-001] Search hotels by destination city</code>.
+              This is a <em>Steps</em> scenario — an ordered checklist.
+            </li>
+            <li>
+              <strong>Compare a Text scenario</strong><br />
+              Open <code>[TMS-BOOK-004] Sort hotel results by lowest price</code> (instructions + expected result, no step list).
+            </li>
+            <li>
+              <strong>Switch to Stream B</strong> (All Organizations → your org → Stream B → Test Case Library).<br />
+              Open <code>[TMS-BOOK-010] Select room and proceed to checkout</code> and
+              <code>[TMS-BOOK-013] Complete payment with valid credit card</code>.
+            </li>
+            <li>
+              <strong>Notice tags and requirements</strong><br />
+              Smoke / regression / payment / agentic_candidate tags are on the case. Some cases also have linked requirements in the detail panel.
+            </li>
+          </ol>
+        </section>
+
+        <section id="playbook-ids">
+          <h3>Playbook IDs — start with this short list</h3>
+          <p>Use these IDs when following tours or talking to the MCP agent. Full folder dumps are in <code>test-cases/</code> in the repository.</p>
+          <table>
+            <tr><th>ID</th><th>Project</th><th>Why open it</th><th>Tags</th></tr>
+            <tr>
+              <td><code>TMS-BOOK-001</code></td>
+              <td><span class="status status-stream-a">A</span></td>
+              <td>Step-based search happy path</td>
+              <td><span class="tag tag-key">search</span> <span class="tag tag-key">smoke</span></td>
+            </tr>
+            <tr>
+              <td><code>TMS-BOOK-002</code></td>
+              <td><span class="status status-stream-a">A</span></td>
+              <td>Star-rating filter — failure / history demo</td>
+              <td><span class="tag tag-key">filters</span> <span class="tag tag-key">regression</span></td>
+            </tr>
+            <tr>
+              <td><code>TMS-BOOK-023</code></td>
+              <td><span class="status status-stream-a">A</span></td>
+              <td>Refundable cancellation</td>
+              <td><span class="tag tag-key">cancellation</span> <span class="tag tag-key">smoke</span></td>
+            </tr>
+            <tr>
+              <td><code>TMS-MOB-001</code></td>
+              <td><span class="status status-stream-a">A</span></td>
+              <td>Mobile case — often still TO_RUN for live practice</td>
+              <td><span class="tag tag-key">mobile</span></td>
+            </tr>
+            <tr>
+              <td><code>TMS-BOOK-010</code></td>
+              <td><span class="status status-stream-b">B</span></td>
+              <td>Room selection → checkout (steps)</td>
+              <td><span class="tag tag-key">booking</span> <span class="tag tag-key">smoke</span></td>
+            </tr>
+            <tr>
+              <td><code>TMS-BOOK-013</code></td>
+              <td><span class="status status-stream-b">B</span></td>
+              <td>Happy-path payment</td>
+              <td><span class="tag tag-key">payment</span> <span class="tag tag-key">smoke</span></td>
+            </tr>
+            <tr>
+              <td><code>TMS-BOOK-018</code></td>
+              <td><span class="status status-stream-b">B</span></td>
+              <td>Expired promo — negative / failure analysis</td>
+              <td><span class="tag tag-key">negative</span></td>
+            </tr>
+            <tr>
+              <td><code>TMS-BOOK-030</code></td>
+              <td><span class="status status-stream-b">B</span></td>
+              <td>Search page load-time SLA</td>
+              <td><span class="tag tag-key">non-functional</span></td>
+            </tr>
+          </table>
+        </section>
+
+        <section id="planning">
+          <h2>Part 2 — Milestones &amp; Test Plans</h2>
+          <p>
+            <strong>Milestones</strong> time-box releases and sprints.
+            <strong>Test plans</strong> group cases for a goal inside a milestone.
+            Open them from the project sidebar in Stream A and Stream B (names can differ slightly per org; match by intent below).
+          </p>
+          <ol class="steps">
+            <li>In <strong>Stream A</strong> open <em>Milestones</em>. Look for a Search / Discovery sprint and a Cancellations (post-release) milestone.</li>
+            <li>Open a milestone and note linked plans and coverage (<em>covered / total</em>).</li>
+            <li>In <strong>Stream B</strong> look for Checkout &amp; Payments and a completed MVP / smoke plan.</li>
+            <li>Open a plan → browse its case list → confirm the <code>TMS-BOOK-*</code> IDs you already know.</li>
+          </ol>
+          <table>
+            <tr><th>Typical plan</th><th>Project</th><th>Try this</th></tr>
+            <tr>
+              <td>Search &amp; Filters — sprint scope</td>
+              <td><span class="status status-stream-a">Stream A</span></td>
+              <td>TMS-BOOK-001 … 009</td>
+            </tr>
+            <tr>
+              <td>Cancellation &amp; modification suite</td>
+              <td><span class="status status-stream-a">Stream A</span></td>
+              <td>TMS-BOOK-023 … 028</td>
+            </tr>
+            <tr>
+              <td>Mobile — cross-platform booking</td>
+              <td><span class="status status-stream-a">Stream A</span></td>
+              <td>TMS-MOB-001 … 006 — best for a live run</td>
+            </tr>
+            <tr>
+              <td>Smoke — happy path booking</td>
+              <td><span class="status status-stream-b">Stream B</span></td>
+              <td>TMS-BOOK-010, 011, 013, 014, 015</td>
+            </tr>
+            <tr>
+              <td>Payment edge cases</td>
+              <td><span class="status status-stream-b">Stream B</span></td>
+              <td>TMS-BOOK-018, 019, 020</td>
+            </tr>
+          </table>
+        </section>
+
+        <section id="launches">
+          <h2>Part 3 — Manual launches</h2>
+          <p>
+            A <strong>manual launch</strong> is a test session linked to a plan: per-case status, comments, attachments.
+            Filter the launch list by <code>Demo</code> if pre-seeded names use that prefix.
+          </p>
+          <ol class="steps">
+            <li>Open <em>Manual Launches</em> in Stream A or Stream B.</li>
+            <li>Click a launch → executions are grouped by folder.</li>
+            <li>Open an execution to mark status, add a comment, or attach a screenshot.</li>
+            <li>Check the launch sidebar for attributes such as <span class="tag tag-val">product:TravelBook</span>.</li>
+          </ol>
+          <h3>What to look for</h3>
+          <div class="card-grid">
+            <div class="card">
+              <h4>Clean smoke</h4>
+              <p>Stream B — a smoke launch where TMS-BOOK-010 / 013 are <span class="status status-passed">Passed</span>.</p>
+            </div>
+            <div class="card">
+              <h4>Failures with evidence</h4>
+              <p>Stream A — TMS-BOOK-002 failed with a comment / attachment. Stream B — TMS-BOOK-018 expired promo.</p>
+            </div>
+            <div class="card">
+              <h4>TO_RUN for practice</h4>
+              <p>Stream A mobile launch is designed so you can execute TMS-MOB-001 yourself and watch statistics update.</p>
+            </div>
+            <div class="card">
+              <h4>Regression history</h4>
+              <p>Several launches on TMS-BOOK-002 (failed → failed → passed) show how a flaky filter was tracked.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="tour-smoke">
+          <h2>Guided tours (about 15 minutes each)</h2>
+
+          <div class="tour" id="tour-smoke-box">
+            <div class="tour-header">
+              <div class="tour-num">A</div>
+              <h3>Tour A — Smoke happy path (beginner)</h3>
+            </div>
+            <ol class="steps">
+              <li>Stream B → Library → open <code>TMS-BOOK-010</code> (room selection steps).</li>
+              <li>Milestones → find the checkout / payments milestone → note the smoke or checkout plan.</li>
+              <li>Test Plans → open the smoke / happy-path plan → confirm TMS-BOOK-010 and TMS-BOOK-013 are listed.</li>
+              <li>Manual Launches → open the pre-release smoke launch → confirm those cases passed.</li>
+              <li>Open the <code>TMS-BOOK-013</code> execution and review payment steps.</li>
+            </ol>
+            <p><strong>Takeaway:</strong> Library → Plan → Launch on a single happy path — now split into Stream B.</p>
+          </div>
+        </section>
+
+        <section id="tour-failures">
+          <div class="tour">
+            <div class="tour-header">
+              <div class="tour-num">B</div>
+              <h3>Tour B — Failure analysis (intermediate)</h3>
+            </div>
+            <ol class="steps">
+              <li>Stream A → Library → <code>TMS-BOOK-002</code> → read the scenario and tags.</li>
+              <li>Manual Launches → find a regression or filter-history launch → execution <span class="status status-failed">Failed</span> with comment / screenshot.</li>
+              <li>Compare later runs of the same ID if several history launches exist (failed → passed after fix).</li>
+              <li>Stream B → Payment Failures / hotfix launch → <code>TMS-BOOK-018</code>.</li>
+            </ol>
+            <p><strong>Takeaway:</strong> TMS keeps failure context — comments, attachments, and history — across streams.</p>
+          </div>
+        </section>
+
+        <section id="tour-stream-c">
+          <div class="tour">
+            <div class="tour-header">
+              <div class="tour-num">C</div>
+              <h3>Tour C — Stream C hands-on + live execution</h3>
+            </div>
+            <ol class="steps">
+              <li>Finish <a href="#stream-c">Create Stream C</a> if you have not already (project + two loyalty cases).</li>
+              <li>Stream A → Manual Launches → mobile smoke → execute <code>TMS-MOB-001</code>: set <span class="status status-passed">Passed</span> and add a short comment.</li>
+              <li>Optional: mark steps on <code>TMS-MOB-002</code> one by one.</li>
+              <li>Return to Stream C library and confirm your new cases are still there — this org is yours to edit.</li>
+            </ol>
+            <p><strong>Takeaway:</strong> Preloaded streams plus a project you created yourself — the Organizations model in one session.</p>
+          </div>
+        </section>
+
+        <section id="mcp-setup">
+          <h2>Configure the ReportPortal MCP server</h2>
+          <p>
+            You do <strong>not</strong> need an API key to use ReportPortal in the browser. Login is enough for Organizations, the Test Case Library, plans, and manual launches.
+          </p>
+          <p>
+            An API key is only for the <strong>AI assistant</strong> (Cursor, GitHub Copilot, Claude Desktop, and similar).
+            That tool is a separate app: it cannot see that you are already signed in in Chrome.
+            The key is a personal pass that tells ReportPortal <em>“this request is from me — show my organization and let me create cases.”</em>
+            Without it the assistant cannot read Stream A/B or create Stream C artifacts on your behalf.
+          </p>
+          <div class="callout callout-info">
+            <strong>Who creates the key?</strong>
+            You generate it yourself after login. ReportPortal does not issue a shared key with the invitation.
+            Open your avatar → <strong>Profile</strong> → <strong>API Keys</strong> → <strong>Generate API Key</strong>.
+            Give it a name (for example <code>mcp-beta</code>), copy the value immediately — it is shown only once — and store it like a password.
+            Official steps:
+            <a href="https://reportportal.io/docs/log-data-in-reportportal/HowToGetAnAccessTokenInReportPortal" target="_blank" rel="noopener">How to get an access token</a>.
+          </div>
+          <p>
+            The MCP endpoint on this instance is
+            <a href="https://tms.beta.reportportal.io/mcp" target="_blank" rel="noopener">https://tms.beta.reportportal.io/mcp</a>.
+            Full client setup:
+            <a href="https://reportportal.io/docs/external-integrations/MCPServer/" target="_blank" rel="noopener">MCP Server documentation</a>.
+          </p>
+
+          <h3>Cursor — <code>mcp.json</code></h3>
+          <p>
+            Settings → Tools &amp; MCP → Add Custom MCP. Paste the block below.
+            Omit <code>X-Project</code> so the agent can query Stream A, Stream B, and Stream C via <code>projectKey</code>
+            (pattern: <code>your-org-slug.stream-a</code> — copy it from the project URL after you open the project).
+          </p>
+<pre><code>{
+  "mcpServers": {
+    "ReportPortal": {
+      "type": "http",
+      "url": "https://tms.beta.reportportal.io/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY"
+      }
+    }
+  }
+}</code></pre>
+          <p>Replace <code>YOUR_API_KEY</code> with the key from Profile. Do not commit it to git or paste it into a shared chat. Confirm the server is connected, then ask: <em>“What ReportPortal tools are available?”</em></p>
+        </section>
+
+        <section id="mcp-tms">
+          <h2>TMS + MCP skills — cases, planning, launches</h2>
+          <p>
+            With MCP connected, run this in Stream C (the project you created). The agent should use tools such as
+            <code>create_folder</code>, <code>create_test_case</code>, <code>create_milestone</code>, <code>create_test_plan</code>,
+            <code>add_test_cases_to_test_plan</code>, and <code>create_manual_launch</code>.
+          </p>
+          <p>Paste the prompt below. Replace the project key with yours.</p>
+<pre><code>Use the ReportPortal MCP server on projectKey "&lt;your-org-slug&gt;.stream-c".
+
+1. Find or create folder "Loyalty &amp; Reviews".
+2. Create a STEPS test case named
+   "[TMS-LOY-003] Filter hotels by guest review score"
+   with tags loyalty, reviews, regression.
+   Steps: open search results → set review score 8+ → apply → only matching hotels remain.
+3. Create milestone "Sprint 26 — Loyalty" (type SPRINT, status TESTING)
+   with start/end dates this month.
+4. Create test plan "Loyalty smoke" on that milestone and add
+   TMS-LOY-001, TMS-LOY-002 (if they exist) and TMS-LOY-003.
+5. Create a manual launch "Stream C — Loyalty smoke" from that plan,
+   including those test-case IDs, started now.
+
+Then tell me the folder id, case ids, milestone id, plan id, and launch id.</code></pre>
+          <div class="callout callout-info">
+            <strong>Verify in the UI</strong>
+            Stream C → Library should show TMS-LOY-003. Milestones / Test Plans / Manual Launches should show the new sprint, plan, and launch. Open the launch and set one execution to Passed.
+          </div>
+        </section>
+
+        <section id="dashboard">
+          <h2>Portfolio dashboard (MCP)</h2>
+          <p>
+            There is no single built-in screen for Manual + Automation + Agentic across every project.
+            With MCP you ask the agent to roll the organization up into a decision dashboard.
+          </p>
+          <p>
+            In this repo: Cursor skill
+            <a href="https://github.com/reportportal/26.1-beta-testing/tree/main/.cursor/skills/reportportal-release-quality" target="_blank" rel="noopener"><code>.cursor/skills/reportportal-release-quality/</code></a>
+            and portable prompt
+            <a href="https://github.com/reportportal/26.1-beta-testing/blob/main/prompts/release-quality-dashboard.md" target="_blank" rel="noopener"><code>prompts/release-quality-dashboard.md</code></a>.
+          </p>
+          <ol class="steps">
+            <li>Stay in your dedicated organization (Stream A, Stream B, and Stream C).</li>
+            <li>In an agent with ReportPortal MCP connected, paste the prompt below (or trigger the skill).</li>
+            <li>Review Manual / Automation / Agentic, risks, and a Go / Go with conditions / No-go.</li>
+          </ol>
+<pre><code>Using the ReportPortal MCP server, build a release quality portfolio dashboard
+across projects in my beta organization (Stream A, Stream B, and Stream C if it exists).
+
+Include Manual (Test Plans / Manual Launches), Automation, and Agentic results if available.
+
+Aggregate quality across projects, break down by project and testing type,
+highlight top risks, and give a Go / Go with conditions / No-go recommendation
+with next actions.
+
+Do not blend Manual + Automation + Agentic into one org pass rate.
+Format as a dashboard-style overview with a short executive summary.</code></pre>
+          <div class="callout callout-tip">
+            <strong>What “good” looks like</strong>
+            Stream A should contribute agentic + search automation + mobile manual. Stream B should contribute checkout/payment manual + automation. Stream C will look thin until you add cases and a launch — that gap is useful: the dashboard should call out incomplete streams.
+          </div>
+        </section>
+
+        <section id="tips">
+          <h2>Tips</h2>
+          <ul style="margin: 0.5rem 0 1rem 1.25rem; font-size: 0.9rem;">
+            <li>All demo data is <strong>synthetic</strong> (TravelBook — Barcelona, Paris, Lisbon, etc.).</li>
+            <li>Stable identifiers are <code>TMS-BOOK-*</code> and <code>TMS-MOB-*</code> in the case <em>name</em>, not folder numbers.</li>
+            <li>Project key format is <code>organization-slug.project-slug</code> (read it from the URL).</li>
+            <li>Duplicating a test plan deep-copies cases into the library — expect extra copies if you try that.</li>
+            <li>Autotests for Search &amp; Filters: <code>booking-playwright-rp/</code> in this repository.</li>
+            <li>Questions: contact your ReportPortal representative and mention the <em>26.1 Beta Playbook</em>.</li>
+          </ul>
+        </section>
+
+        <footer>
+          <p>ReportPortal 26.1 Beta Playbook · Organizations + TMS + MCP · TravelBook demo dataset</p>
+          <p>
+            Colors from the <a href="https://reportportal.io/" target="_blank" rel="noopener">ReportPortal</a> design system.
+            Environment: <a href="https://tms.beta.reportportal.io/ui/#organizations" target="_blank" rel="noopener">tms.beta.reportportal.io</a>
+            · Repo: <a href="https://github.com/reportportal/26.1-beta-testing" target="_blank" rel="noopener">26.1-beta-testing</a>
+          </p>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('section[id], header[id]');
+    const navLinks = document.querySelectorAll('nav a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const link = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
