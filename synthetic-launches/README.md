@@ -4,7 +4,7 @@ Postman collections and a Python uploader that seed ReportPortal with realistic
 automation results for the Booking Flow Demo TMS cases (folders 93+95 and 92+94).
 
 Folder Search & Filters is already covered by the live Playwright suite in
-[`../booking-playwright-rp`](../booking-playwright-rp/) and is not included here.
+[`../booking-playwright-rp`](../e2e-playwright-tests/) and is not included here.
 
 ## What gets uploaded
 
