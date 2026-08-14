@@ -1,6 +1,6 @@
 # Booking.com Playwright + ReportPortal demo
 
-Automates the 9 test cases from TMS folder 90 ("Search & Filters", see
+Automates the 9 test cases from TMS folder "Search & Filters" (see
 [`../test-cases/search-and-filters.md`](../test-cases/search-and-filters.md)) against the live
 [booking.com](https://www.booking.com) website, and reports the results to ReportPortal via
 [`@reportportal/agent-js-playwright`](https://github.com/reportportal/agent-js-playwright).
