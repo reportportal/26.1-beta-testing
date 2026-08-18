@@ -90,14 +90,29 @@
       padding: 1.5rem 0;
     }
     nav .brand { padding: 0 1.25rem 1.25rem; border-bottom: 1px solid var(--rp-border); margin-bottom: 1rem; }
+    nav .brand .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    nav .brand .brand-logo svg {
+      width: 28px;
+      height: 28px;
+      display: block;
+      flex-shrink: 0;
+    }
     nav .brand .logo {
       font-family: var(--font-heading);
       font-weight: 700;
       font-size: 1.1rem;
+      line-height: 1;
       color: var(--rp-topaz);
       letter-spacing: -0.02em;
     }
-    nav .brand .sub { font-size: 0.75rem; color: var(--rp-text-muted); margin-top: 0.25rem; }
+    nav .brand .brand-logo:hover .logo { color: var(--color-primary-500); }
+    nav .brand .sub { font-size: 0.75rem; color: var(--rp-text-muted); margin-top: 0.35rem; }
     nav ul { list-style: none; }
     nav li a {
       display: block;
@@ -129,8 +144,33 @@
       color: white;
       padding: 3.75rem 3.25rem 3.15rem;
     }
+    .hero-logo {
+      display: flex;
+      width: fit-content;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: #fff;
+      margin-bottom: 1.1rem;
+    }
+    .hero-logo svg {
+      width: 28px;
+      height: 28px;
+      display: block;
+      color: #fff;
+    }
+    .hero-logo span {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .hero-logo:hover span { opacity: 0.88; }
     .hero .badge {
-      display: inline-block;
+      display: block;
+      width: fit-content;
       background: rgba(255,255,255,0.14);
       border: 1px solid rgba(255,255,255,0.32);
       border-radius: 999px;
@@ -446,6 +486,45 @@
       margin: 0.75rem 0 1rem;
     }
     pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+    .code-block {
+      position: relative;
+      margin: 0.75rem 0 1rem;
+    }
+    .code-block pre {
+      margin: 0;
+      padding-right: 5.75rem;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255,255,255,0.12);
+      color: #f7f7f8;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 6px;
+      padding: 0.28rem 0.65rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      z-index: 1;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.22); }
+    .copy-btn:focus-visible {
+      outline: 2px solid var(--color-primary-400);
+      outline-offset: 2px;
+    }
+    .copy-btn.copied {
+      background: rgba(58, 167, 109, 0.28);
+      border-color: rgba(58, 167, 109, 0.5);
+      color: #c8f0d8;
+    }
+    .copy-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     .btn {
       display: inline-block;
@@ -475,6 +554,96 @@
     .tips { margin: 0.5rem 0 1rem 1.25rem; }
     .tips li { margin-bottom: 0.45rem; }
 
+    .feedback-embed iframe {
+      width: 100%;
+      min-height: 720px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--rp-white);
+      box-shadow: var(--rp-shadow);
+    }
+    .feedback-placeholder {
+      background: var(--rp-white);
+      border: 1px solid var(--rp-border);
+      border-radius: 12px;
+      box-shadow: var(--rp-shadow);
+      padding: 1.6rem 1.7rem 1.4rem;
+      margin: 1rem 0 0;
+    }
+    .feedback-placeholder .form-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      background: var(--rp-topaz-light);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .feedback-placeholder .form-banner svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      color: var(--rp-topaz);
+      margin-top: 0.1rem;
+    }
+    .feedback-placeholder .form-banner strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      margin-bottom: 0.15rem;
+      color: var(--text-primary);
+    }
+    .feedback-placeholder .form-banner span {
+      font-size: 0.88rem;
+      color: var(--rp-text-muted);
+      line-height: 1.5;
+    }
+    .feedback-field { margin-bottom: 1.05rem; }
+    .feedback-field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+    .feedback-field .fake-input,
+    .feedback-field .fake-area {
+      width: 100%;
+      border: 1px solid var(--rp-border);
+      border-radius: 8px;
+      background: var(--rp-bg-200);
+      color: var(--text-service);
+      font-size: 0.88rem;
+      pointer-events: none;
+      user-select: none;
+    }
+    .feedback-field .fake-input { padding: 0.7rem 0.9rem; }
+    .feedback-field .fake-area { min-height: 88px; padding: 0.7rem 0.9rem; }
+    .feedback-choices { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .feedback-choices span {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--rp-border);
+      background: var(--rp-bg-200);
+      color: var(--rp-text-muted);
+      font-size: 0.82rem;
+      pointer-events: none;
+    }
+    .feedback-submit {
+      display: inline-block;
+      background: var(--color-primary-200);
+      color: var(--color-primary-800);
+      border: 0;
+      border-radius: 4px;
+      padding: 0.6rem 1.15rem;
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
+      font-weight: 600;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
     footer {
       margin-top: 2rem;
       padding-top: 1.5rem;
@@ -503,6 +672,8 @@
       body { background: white; }
       .layout { grid-template-columns: 1fr; width: 100%; box-shadow: none; }
       .hero { background: var(--gradient-primary); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .copy-btn { display: none; }
+      .code-block pre { padding-right: 1.15rem; }
     }
   </style>
 </head>
@@ -510,7 +681,13 @@
   <div class="layout">
     <nav>
       <div class="brand">
-        <div class="logo">ReportPortal</div>
+        <a class="brand-logo" href="https://reportportal.io/" target="_blank" rel="noopener" aria-label="ReportPortal">
+          <svg viewBox="0 0 38 38" aria-hidden="true" focusable="false">
+            <path d="M1.78125 22.5824L1.78125 27.936C1.78125 28.339 2.00417 28.7114 2.36603 28.9128L18.4152 37.8489C18.7771 38.0504 19.2229 38.0504 19.5848 37.8489L35.634 28.9128C35.9958 28.7114 36.2188 28.339 36.2188 27.936V20.7386L19 30.3601L8.7986 24.68L8.7986 18.6752L1.78125 22.5824Z" fill="#009BB9"/>
+            <path d="M19 7.63991L29.2014 13.32V19.4152L36.2188 15.508V10.064C36.2188 9.66099 35.9958 9.28864 35.634 9.08715L19.5848 0.151113C19.2229 -0.050371 18.7771 -0.050371 18.4152 0.151113L2.36603 9.08715C2.00417 9.28864 1.78125 9.66099 1.78125 10.064L1.78125 17.3862L19 7.63991Z" fill="#009BB9"/>
+          </svg>
+          <span class="logo">ReportPortal</span>
+        </a>
         <div class="sub">26.1 Beta Playbook</div>
       </div>
       <div class="section-label">Overview</div>
@@ -544,11 +721,19 @@
       <ul>
         <li><a href="#walkthrough">Video walkthrough</a></li>
         <li><a href="#tips">Tips</a></li>
+        <li><a href="#feedback">Your feedback</a></li>
       </ul>
     </nav>
 
     <main>
       <header class="hero" id="intro">
+        <a class="hero-logo" href="https://reportportal.io/" target="_blank" rel="noopener" aria-label="ReportPortal">
+          <svg viewBox="0 0 38 38" aria-hidden="true" focusable="false">
+            <path d="M1.78125 22.5824L1.78125 27.936C1.78125 28.339 2.00417 28.7114 2.36603 28.9128L18.4152 37.8489C18.7771 38.0504 19.2229 38.0504 19.5848 37.8489L35.634 28.9128C35.9958 28.7114 36.2188 28.339 36.2188 27.936V20.7386L19 30.3601L8.7986 24.68L8.7986 18.6752L1.78125 22.5824Z" fill="currentColor"/>
+            <path d="M19 7.63991L29.2014 13.32V19.4152L36.2188 15.508V10.064C36.2188 9.66099 35.9958 9.28864 35.634 9.08715L19.5848 0.151113C19.2229 -0.050371 18.7771 -0.050371 18.4152 0.151113L2.36603 9.08715C2.00417 9.28864 1.78125 9.66099 1.78125 10.064L1.78125 17.3862L19 7.63991Z" fill="currentColor"/>
+          </svg>
+          <span>ReportPortal</span>
+        </a>
         <span class="badge">Self-guided · Organizations · TMS · MCP</span>
         <h1>26.1 Beta Playbook</h1>
         <p>
@@ -1169,6 +1354,60 @@ Format as a dashboard-style overview with a short executive summary.</code></pre
           </ul>
         </section>
 
+        <section id="feedback">
+          <h2>Your feedback</h2>
+          <p>
+            After you try Organizations, TMS, and MCP, tell us what worked and what we should change before the public 26.1 release.
+            We collect this from every beta client so the product matches how you actually use it.
+          </p>
+          <div class="feedback-embed">
+            <!--
+              When the Microsoft Forms URL is ready: Share → Embed, then replace
+              .feedback-placeholder with the iframe, for example:
+
+              <iframe
+                title="26.1 Beta feedback"
+                src="https://forms.office.com/Pages/ResponsePage.aspx?id=YOUR_FORM_ID&embed=true"
+                width="100%"
+                height="720"
+                style="border: none; max-width: 100%;"
+                allowfullscreen>
+              </iframe>
+            -->
+            <div class="feedback-placeholder" aria-disabled="true">
+              <div class="form-banner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <path d="M14 2v6h6"/>
+                  <path d="M8 13h8M8 17h5"/>
+                </svg>
+                <div>
+                  <strong>Form coming soon</strong>
+                  <span>This slot is reserved for a short survey. Until the form is linked, send comments to your ReportPortal representative and mention the 26.1 Beta Playbook.</span>
+                </div>
+              </div>
+              <div class="feedback-field">
+                <label>How useful was this playbook?</label>
+                <div class="feedback-choices">
+                  <span>Very useful</span>
+                  <span>Useful</span>
+                  <span>Neutral</span>
+                  <span>Needs work</span>
+                </div>
+              </div>
+              <div class="feedback-field">
+                <label>What should we improve in 26.1?</label>
+                <div class="fake-area">Your comments will go here</div>
+              </div>
+              <div class="feedback-field">
+                <label>Your company / contact (optional)</label>
+                <div class="fake-input">name@company.com</div>
+              </div>
+              <button type="button" class="feedback-submit" disabled>Submit feedback</button>
+            </div>
+          </div>
+        </section>
+
         <footer>
           <p>ReportPortal 26.1 Beta Playbook · Organizations + TMS + MCP · TravelBook demo dataset</p>
           <p>
@@ -1182,8 +1421,54 @@ Format as a dashboard-style overview with a short executive summary.</code></pre
   </div>
 
   <script>
+    const copyIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+    const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        ta.remove();
+        return ok;
+      }
+    }
+
+    document.querySelectorAll('pre').forEach(pre => {
+      const wrap = document.createElement('div');
+      wrap.className = 'code-block';
+      pre.parentNode.insertBefore(wrap, pre);
+      wrap.appendChild(pre);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.setAttribute('aria-label', 'Copy code');
+      btn.innerHTML = copyIcon + ' Copy';
+      btn.addEventListener('click', async () => {
+        const text = (pre.innerText || '').replace(/\n$/, '');
+        const ok = await copyText(text);
+        if (!ok) return;
+        btn.classList.add('copied');
+        btn.innerHTML = checkIcon + ' Copied';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = copyIcon + ' Copy';
+        }, 2000);
+      });
+      wrap.appendChild(btn);
+    });
+
     const sections = document.querySelectorAll('section[id], header[id]');
-    const navLinks = document.querySelectorAll('nav a');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
