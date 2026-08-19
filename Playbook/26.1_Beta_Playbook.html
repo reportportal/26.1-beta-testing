@@ -554,95 +554,56 @@
     .tips { margin: 0.5rem 0 1rem 1.25rem; }
     .tips li { margin-bottom: 0.45rem; }
 
+    .feedback-embed {
+      background: var(--rp-white);
+      border: 1px solid var(--rp-border);
+      border-radius: 12px;
+      box-shadow: var(--rp-shadow);
+      overflow: hidden;
+    }
     .feedback-embed iframe {
       width: 100%;
-      min-height: 720px;
+      min-height: 760px;
       border: 0;
-      border-radius: 12px;
-      background: var(--rp-white);
-      box-shadow: var(--rp-shadow);
-    }
-    .feedback-placeholder {
-      background: var(--rp-white);
-      border: 1px solid var(--rp-border);
-      border-radius: 12px;
-      box-shadow: var(--rp-shadow);
-      padding: 1.6rem 1.7rem 1.4rem;
-      margin: 1rem 0 0;
-    }
-    .feedback-placeholder .form-banner {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.85rem;
-      background: var(--rp-topaz-light);
-      border-radius: 10px;
-      padding: 0.9rem 1rem;
-      margin-bottom: 1.25rem;
-    }
-    .feedback-placeholder .form-banner svg {
-      width: 22px;
-      height: 22px;
-      flex-shrink: 0;
-      color: var(--rp-topaz);
-      margin-top: 0.1rem;
-    }
-    .feedback-placeholder .form-banner strong {
       display: block;
+      background: var(--rp-white);
+    }
+    .feedback-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      background: var(--rp-topaz-light);
+      padding: 0.9rem 1.25rem;
+    }
+    .feedback-card-header-text { display: flex; flex-direction: column; gap: 0.15rem; }
+    .feedback-card-header-text strong {
       font-family: var(--font-heading);
       font-size: 0.95rem;
-      margin-bottom: 0.15rem;
       color: var(--text-primary);
     }
-    .feedback-placeholder .form-banner span {
-      font-size: 0.88rem;
-      color: var(--rp-text-muted);
-      line-height: 1.5;
-    }
-    .feedback-field { margin-bottom: 1.05rem; }
-    .feedback-field label {
-      display: block;
+    .feedback-card-header-text span { font-size: 0.8rem; color: var(--rp-text-muted); }
+    .feedback-header-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
       font-size: 0.82rem;
       font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.4rem;
+      color: var(--rp-topaz);
+      text-decoration: none;
+      white-space: nowrap;
     }
-    .feedback-field .fake-input,
-    .feedback-field .fake-area {
-      width: 100%;
-      border: 1px solid var(--rp-border);
-      border-radius: 8px;
-      background: var(--rp-bg-200);
-      color: var(--text-service);
-      font-size: 0.88rem;
-      pointer-events: none;
-      user-select: none;
-    }
-    .feedback-field .fake-input { padding: 0.7rem 0.9rem; }
-    .feedback-field .fake-area { min-height: 88px; padding: 0.7rem 0.9rem; }
-    .feedback-choices { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .feedback-choices span {
-      display: inline-block;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid var(--rp-border);
-      background: var(--rp-bg-200);
+    .feedback-header-link:hover { text-decoration: underline; }
+    .feedback-fallback {
+      padding: 0.65rem 1.25rem;
+      font-size: 0.8rem;
       color: var(--rp-text-muted);
-      font-size: 0.82rem;
-      pointer-events: none;
+      text-align: center;
+      border-top: 1px solid var(--rp-border);
     }
-    .feedback-submit {
-      display: inline-block;
-      background: var(--color-primary-200);
-      color: var(--color-primary-800);
-      border: 0;
-      border-radius: 4px;
-      padding: 0.6rem 1.15rem;
-      font-family: var(--font-heading);
-      font-size: 0.88rem;
-      font-weight: 600;
-      pointer-events: none;
-      opacity: 0.7;
-    }
+    .feedback-fallback a { color: var(--rp-topaz); font-weight: 600; text-decoration: none; }
+    .feedback-fallback a:hover { text-decoration: underline; }
 
     footer {
       margin-top: 2rem;
@@ -1361,49 +1322,27 @@ Format as a dashboard-style overview with a short executive summary.</code></pre
             We collect this from every beta client so the product matches how you actually use it.
           </p>
           <div class="feedback-embed">
-            <!--
-              When the Microsoft Forms URL is ready: Share → Embed, then replace
-              .feedback-placeholder with the iframe, for example:
-
-              <iframe
-                title="26.1 Beta feedback"
-                src="https://forms.office.com/Pages/ResponsePage.aspx?id=YOUR_FORM_ID&embed=true"
-                width="100%"
-                height="720"
-                style="border: none; max-width: 100%;"
-                allowfullscreen>
-              </iframe>
-            -->
-            <div class="feedback-placeholder" aria-disabled="true">
-              <div class="form-banner">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <path d="M14 2v6h6"/>
-                  <path d="M8 13h8M8 17h5"/>
+            <div class="feedback-card-header">
+              <div class="feedback-card-header-text">
+                <strong>TMS 26.1 Beta Playbook &mdash; Feedback</strong>
+                <span>10 questions &middot; about 3&ndash;5 minutes</span>
+              </div>
+              <a class="feedback-header-link" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=0HIbtJ9OJkyKaflJ82fJHUVBsCG-HRFDpm7TgEOCrSpUMVlESDJORExNRjBPQTVHOEFHNlIzVUhISS4u" target="_blank" rel="noopener">
+                Open in new tab
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <path d="M15 3h6v6"/>
+                  <path d="M10 14 21 3"/>
                 </svg>
-                <div>
-                  <strong>Form coming soon</strong>
-                  <span>This slot is reserved for a short survey. Until the form is linked, send comments to your ReportPortal representative and mention the 26.1 Beta Playbook.</span>
-                </div>
-              </div>
-              <div class="feedback-field">
-                <label>How useful was this playbook?</label>
-                <div class="feedback-choices">
-                  <span>Very useful</span>
-                  <span>Useful</span>
-                  <span>Neutral</span>
-                  <span>Needs work</span>
-                </div>
-              </div>
-              <div class="feedback-field">
-                <label>What should we improve in 26.1?</label>
-                <div class="fake-area">Your comments will go here</div>
-              </div>
-              <div class="feedback-field">
-                <label>Your company / contact (optional)</label>
-                <div class="fake-input">name@company.com</div>
-              </div>
-              <button type="button" class="feedback-submit" disabled>Submit feedback</button>
+              </a>
+            </div>
+            <iframe
+              title="TMS 26.1 Beta Playbook &mdash; Feedback"
+              src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=0HIbtJ9OJkyKaflJ82fJHUVBsCG-HRFDpm7TgEOCrSpUMVlESDJORExNRjBPQTVHOEFHNlIzVUhISS4u&embed=true"
+              allowfullscreen>
+            </iframe>
+            <div class="feedback-fallback">
+              Form not loading? <a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=0HIbtJ9OJkyKaflJ82fJHUVBsCG-HRFDpm7TgEOCrSpUMVlESDJORExNRjBPQTVHOEFHNlIzVUhISS4u" target="_blank" rel="noopener">Open it in a new tab</a> instead.
             </div>
           </div>
         </section>
