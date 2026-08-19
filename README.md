@@ -9,7 +9,7 @@ Materials for ReportPortal **26.1** beta: try-it scenarios, walkthroughs, and ag
 | | |
 |--|--|
 | **Cursor skill** | [`.cursor/skills/reportportal-release-quality/`](.cursor/skills/reportportal-release-quality/) — Cursor only |
-| **Portable prompt** | [`prompts/release-quality-dashboard.md`](prompts/release-quality-dashboard.md) — any MCP-capable agent |
+| **Portable prompt** | [`prompts/portfolio-dashboard.md`](prompts/portfolio-dashboard.md) — any MCP-capable agent |
 
 Both need **ReportPortal MCP**. The skill builds a Canvas in Cursor; elsewhere paste the prompt (optionally with `reference.md` for gate/metric rules).
 
