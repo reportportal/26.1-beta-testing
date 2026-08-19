@@ -568,32 +568,41 @@
           <h2>How 26.1 fits together</h2>
           <dl class="value">
             <dt>Task</dt>
-            <dd>See quality for several teams in one organization — without mixing their access or results.</dd>
+            <dd>
+              Manage testing for several teams in one place: isolated test libraries and launches per team,
+              but unified portfolio status for leadership — no mixing, no leaks.
+            </dd>
             <dt>How</dt>
             <dd>
-              An organization holds projects (streams). Each stream has its own Test Case Library, milestones, plans, and launches.
-              A Test Lead can still read across the org. MCP later rolls those projects into one quality picture.
+              An organization groups projects (streams). Each stream has its own Test Case Library, Milestones, Test Plans,
+              and execution results — manual launches, automated and agentic test runs all coexist in one place per stream.
+              Access control sits at the org level — manage who sees which stream. MCP then fetches and aggregates results 
+              across streams to build a unified portfolio visualization.
             </dd>
             <dt>Result</dt>
-            <dd>You know what already lives in Stream A and B, you add Stream C yourself, then you scale the same TMS path with an assistant.</dd>
+            <dd>
+              Each team owns their test cases and results independently — manual launches, automated and agentic test runs
+              stay isolated per stream. Leadership gets a single portfolio visualization across the org: overall status,
+              per-project breakdown, risk identification — without access leaks. No fragmentation, no manual data merging.
+            </dd>
           </dl>
           <div class="flow">
             <div class="flow-step">
               <div class="num">1</div>
               <strong>Organization</strong>
-              <span>Open A &amp; B, create C, invite people</span>
+              <span>Explore A &amp; B streams, create Stream C, invite people</span>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-step">
               <div class="num">2</div>
-              <strong>See what is there</strong>
-              <span>Library, plans, launches in A &amp; B</span>
+              <strong>Learn the path</strong>
+              <span>Walk through Library → Plans → Launches in A &amp; B Streams</span>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-step">
               <div class="num">3</div>
               <strong>Do it yourself</strong>
-              <span>Cases → plan → launch in Stream C</span>
+              <span>Create test cases, plans, launch manually</span>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-step">
@@ -604,8 +613,8 @@
             <div class="flow-arrow">→</div>
             <div class="flow-step">
               <div class="num">5</div>
-              <strong>Org dashboard</strong>
-              <span>Manual · Auto · Agentic</span>
+              <strong>Portfolio dashboard</strong>
+              <span>All org projects, all testing types in one view</span>
             </div>
           </div>
         </section>
@@ -613,7 +622,7 @@
         <section id="access">
           <h2>Access &amp; your organization</h2>
           <p>
-            Sign in to the public beta instance. ReportPortal creates a <span class="ui">Personal</span> organization for every user.
+            Sign in to the beta instance. ReportPortal creates a <span class="ui">Personal</span> organization for every user.
             For this beta you also receive a <strong>dedicated organization</strong> (named by your ReportPortal contact) with TravelBook data already loaded.
           </p>
           <table>
@@ -645,33 +654,34 @@
           </table>
           <div class="callout callout-tip">
             <strong>This is your copy of the data</strong>
-            Feel free to explore, edit cases, create launches, and add Stream C content. Every client org starts from the same TravelBook set. Do not delete the whole library if you still want to follow this playbook.
+            Feel free to explore, edit cases, create launches, and add Stream C content. Do not delete the whole library if you still want to follow this playbook.
           </div>
         </section>
 
         <section id="org">
-          <h2>Open your organization</h2>
+          <h2>Explore your organization</h2>
           <dl class="value">
             <dt>Task</dt>
-            <dd>Land in the dedicated beta org — not Personal — and see where projects and people are managed.</dd>
+            <dd>Organize multiple independent projects within one organization — invite teammates if you want, but you can go solo.</dd>
             <dt>How</dt>
             <dd>
-              After sign-in you are on
+              After sign-in, open your dedicated organization (not <span class="ui">Personal</span>) from
               <a href="https://tms.beta.reportportal.io/ui/#organizations" target="_blank" rel="noopener">All Organizations</a>.
-              Each tile is a separate org; Personal tiles show a person icon. Open the organization named for your company.
-              In the sidebar, <span class="ui">Projects</span> is where streams live. <span class="ui">Organization users</span> and organization settings sit next to it —
-              one place to invite colleagues and grant them access per project, without hopping between teams.
+              In the sidebar, <span class="ui">Projects</span> is where you see and create streams (A, B, C, and more).
+              <span class="ui">Organization users</span> lets you invite colleagues and grant per-project access — but this is optional.
+              All project management happens in one place.
             </dd>
             <dt>Result</dt>
             <dd>
-              You can invite other users to this organization and give them access to Stream A, Stream B, and (after you create it) Stream C.
-              User management stays at org level; project permissions stay per stream.
+              You can create and manage as many projects as you need, each with isolated test libraries and results.
+              Inviting teammates is optional — you can complete the entire playbook solo if you prefer.
+              Team access can be added anytime.
             </dd>
           </dl>
-          <h3>Invite a colleague</h3>
+          <h3>Want to invite a colleague?</h3>
           <p>
-            From the same sidebar open <span class="ui">Organization users</span> → <span class="ui">Invite user</span> / <span class="ui">Assign user</span>.
-            Keep the organization role as <span class="ui">Member</span>. Add Stream A and Stream B now (add Stream C after you create that project).
+            From the sidebar, open <span class="ui">Organization users</span> → <span class="ui">Invite user</span> / <span class="ui">Assign user</span>.
+            Grant them access to Stream A and Stream B now (you'll grant Stream C access after you create that project).
             Set <span class="ui">View only</span> or <span class="ui">Can edit</span> per project. They appear in the list after they follow the invite link.
           </p>
         </section>
@@ -679,14 +689,13 @@
         <section id="streams">
           <h2>Stream A &amp; Stream B (preloaded)</h2>
           <p>
-            TravelBook’s Booking Flow library is split across two projects so you can see Organizations in a realistic multi-stream setup.
-            Stream A also has agentic results; Stream B has manual + automation only.
+            Booking Flow is split across two streams to show multi-team reality. Stream A: Manual, Automated, and Agentic. Stream B: Manual and Automated. Each represents different team setups.
           </p>
           <div class="card-grid">
             <div class="card">
               <div class="id">Project · Stream A</div>
               <h4>Search, cancellations, mobile</h4>
-              <p><strong>21 cases</strong> · Manual + Automation + Agentic</p>
+              <p><strong>21 cases</strong> · Manual + Automated tests + Agentic</p>
               <p>
                 Folders: <span class="ui">Search &amp; Filters</span> (9), <span class="ui">Cancellations &amp; Modifications</span> (6),
                 <span class="ui">Mobile Booking</span> (6).
@@ -699,7 +708,7 @@
             <div class="card">
               <div class="id">Project · Stream B</div>
               <h4>Checkout, payment, performance</h4>
-              <p><strong>15 cases</strong> · Manual + Automation</p>
+              <p><strong>15 cases</strong> · Manual + Automated tests</p>
               <p>
                 Folders: <span class="ui">Booking Flow</span> (14), <span class="ui">Non-functional</span> (1).
               </p>
@@ -712,13 +721,13 @@
               <td>Search &amp; Filters</td>
               <td><span class="status status-stream-a">Stream A</span></td>
               <td>TMS-BOOK-001 … 009</td>
-              <td>Manual, automation, agentic candidates</td>
+              <td>Manual, automated tests, agentic candidates</td>
             </tr>
             <tr>
               <td>Cancellations &amp; Modifications</td>
               <td><span class="status status-stream-a">Stream A</span></td>
               <td>TMS-BOOK-023 … 028</td>
-              <td>Manual + automation</td>
+              <td>Manual + automated tests</td>
             </tr>
             <tr>
               <td>Mobile Booking</td>
@@ -730,13 +739,13 @@
               <td>Booking Flow</td>
               <td><span class="status status-stream-b">Stream B</span></td>
               <td>TMS-BOOK-010 … 022, 029</td>
-              <td>Manual + automation</td>
+              <td>Manual + automated tests</td>
             </tr>
             <tr>
               <td>Non-functional</td>
               <td><span class="status status-stream-b">Stream B</span></td>
               <td>TMS-BOOK-030</td>
-              <td>Automation</td>
+              <td>Automated tests</td>
             </tr>
           </table>
         </section>
@@ -745,16 +754,15 @@
           <h2>Create Stream C</h2>
           <dl class="value">
             <dt>Task</dt>
-            <dd>Give the organization a third team so the later dashboard has three projects to roll up — not only the two preloaded streams.</dd>
+            <dd>Create your own testing stream where you'll write test cases, build plans, and execute launches from scratch.</dd>
             <dt>How</dt>
             <dd>
               In your organization open <span class="ui">Projects</span> → <span class="ui">Create project</span>. Name it <code>Stream C</code>.
-              Open it and join / assign yourself if prompted. Leave the library empty for now — you add cases in the TMS section below.
+              Open it and join. Leave the library empty — you'll add cases in the next section.
             </dd>
             <dt>Result</dt>
             <dd>
-              Stream C is an empty Loyalty &amp; Reviews team. If you already invited a colleague, add Stream C to their project access from
-              <span class="ui">Organization users</span>.
+              Stream C is ready for you to practice the full TMS workflow. Everything you create here will later roll up into the org portfolio.
             </dd>
           </dl>
         </section>
@@ -975,7 +983,7 @@
             <dd>Connect an AI assistant to this beta instance so it can read Stream A/B and create Stream C artifacts for you.</dd>
             <dt>How</dt>
             <dd>
-              An <strong>API key is required</strong> for MCP. Generate it after login: avatar → <span class="ui">Profile</span> → <span class="ui">API Keys</span> → <span class="ui">Generate API Key</span>
+              An <strong>API key is required</strong> for MCP. Generate it after login: avatar → <span class="ui">My Profile</span> → <span class="ui">API Keys</span> → <span class="ui">Generate API Key</span>
               (for example <code>mcp-beta</code>). Copy it immediately — it is shown only once.
               Token steps:
               <a href="https://reportportal.io/docs/log-data-in-reportportal/HowToGetAnAccessTokenInReportPortal" target="_blank" rel="noopener">How to get an access token</a>.
@@ -1079,33 +1087,54 @@ Reply with the launch id and the execution ids.</code></pre>
           <h2>Portfolio dashboard (MCP)</h2>
           <dl class="value">
             <dt>Task</dt>
-            <dd>While the central view for automation and manual tests is still in development, get a single quality picture for the whole organization.</dd>
+            <dd>While the central view for automated and manual tests is still in development, get a single quality picture for the whole organization.</dd>
             <dt>How</dt>
             <dd>
               Build the dashboard with MCP: combine data across Stream A, Stream B, and Stream C.
               Skill
               <a href="https://github.com/reportportal/26.1-beta-testing/tree/main/.cursor/skills/reportportal-release-quality" target="_blank" rel="noopener"><code>reportportal-release-quality</code></a>
               and prompt
-              <a href="https://github.com/reportportal/26.1-beta-testing/blob/main/prompts/release-quality-dashboard.md" target="_blank" rel="noopener"><code>release-quality-dashboard.md</code></a>.
-              Keep Manual, Automation, and Agentic as separate lines — do not blend them into one org pass rate.
+              <a href="https://github.com/reportportal/26.1-beta-testing/blob/main/prompts/portfolio-dashboard.md" target="_blank" rel="noopener"><code>portfolio-dashboard.md</code></a>.
+              Keep Manual, Automated, and Agentic as separate lines — do not blend them into one org pass rate.
             </dd>
             <dt>Result</dt>
             <dd>
-              A Go / Go with conditions / No-go with risks. Stream A should show agentic + search automation + mobile manual.
+              A Go / Go with conditions / No-go with risks. Stream A should show agentic + search automated tests + mobile manual.
               Stream B checkout/payment. Stream C looks thin until you add cases and a launch — that gap is useful.
             </dd>
           </dl>
-<pre><code>Using the ReportPortal MCP server, build a release quality portfolio dashboard
+<pre><code>Using the ReportPortal MCP server, build a portfolio dashboard
 across projects in my beta organization (Stream A, Stream B, and Stream C if it exists).
 
-Include Manual (Test Plans / Manual Launches), Automation, and Agentic results if available.
+Include:
+- Manual — Test Plans / Manual Launches
+- Automated — automated test launches
+- Agentic — AI agent / CheckSuite results
 
-Aggregate quality across projects, break down by project and testing type,
-highlight top risks, and give a Go / Go with conditions / No-go recommendation
-with next actions.
+Requirements:
+1. Aggregate quality status across projects
+2. Break down by testing type: Manual / Automated / Agentic
+3. Highlight top risks and incomplete areas
+4. Show what looks healthy vs what needs attention
+5. Give a clear GO / NO-GO recommendation with next actions
+6. Format as a dashboard-style view with a short executive summary (use Canvas when available)
 
-Do not blend Manual + Automation + Agentic into one org pass rate.
-Format as a dashboard-style overview with a short executive summary.</code></pre>
+Metric rules:
+- Do not blend Manual + Automated + Agentic into one org pass rate
+- Automated / Agentic: evaluate the latest suite or CheckSuite only (status, freshness, PB/TI)
+- Manual: use plan coverage (covered/total) and open TO_RUN, not lifetime pass % across all demo launches
+- Split defects by intent: PB (blocks) · TI (classify) · AB/SI (test debt)
+- Gate = explicit checklist; GO only if all criteria pass
+
+Widgets:
+- Gate readiness donut
+- Defect mix
+- Freshness vs SLA
+- Testing-type health bars
+- Automated tests stacked charts
+- Manual coverage + TO_RUN backlog
+- Agentic latest-status donut
+- Prioritized next actions</code></pre>
         </section>
 
         <section id="walkthrough">
@@ -1151,7 +1180,7 @@ Format as a dashboard-style overview with a short executive summary.</code></pre
           <div class="shot">
             <div class="shot-label">Shot 6 · Org dashboard</div>
             <p>
-              Agent rolls A + B + C into Manual / Automation / Agentic. Stream C is thin — that is the point.
+              Agent rolls A + B + C into Manual / Automated / Agentic. Stream C is thin — that is the point.
               End on the Go / No-go line.
             </p>
           </div>
@@ -1164,7 +1193,7 @@ Format as a dashboard-style overview with a short executive summary.</code></pre
             <li>Stable identifiers are <code>TMS-BOOK-*</code> and <code>TMS-MOB-*</code> in the case name, not folder numbers.</li>
             <li>Project key format is <code>organization-slug.project-slug</code> (read it from the URL).</li>
             <li>Duplicating a test plan deep-copies cases into the library — expect extra copies if you try that.</li>
-            <li>Autotests for Search &amp; Filters: <a href="https://github.com/reportportal/26.1-beta-testing/tree/main/e2e-playwright-tests" target="_blank" rel="noopener">e2e-playwright-tests</a>.</li>
+            <li>Automated tests for Search &amp; Filters: <a href="https://github.com/reportportal/26.1-beta-testing/tree/main/e2e-playwright-tests" target="_blank" rel="noopener">e2e-playwright-tests</a>.</li>
             <li>Questions: contact your ReportPortal representative and mention the <span class="ui">26.1 Beta Playbook</span>.</li>
           </ul>
         </section>

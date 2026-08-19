@@ -1,4 +1,4 @@
-# Metric reference — release quality dashboard
+# Metric reference — portfolio dashboard
 
 ## Gate checklist (default)
 
@@ -6,8 +6,8 @@ GO only when **all** pass. Adjust thresholds with the user if needed.
 
 | ID | Criterion | Pass when |
 |----|-----------|-----------|
-| auto-green | Latest automation suite green on each project | No FAILED/INTERRUPTED latest suites |
-| auto-fresh | Automation freshness | Latest auto ended within **7 days** (configurable) |
+| auto-green | Latest automated suite green on each project | No FAILED/INTERRUPTED latest suites |
+| auto-fresh | Automated freshness | Latest auto ended within **7 days** (configurable) |
 | auto-pb | Product risk cleared | Open PB = 0 and TI = 0 on latest auto (or explicitly accepted) |
 | manual-critical | Critical manual plans complete | Every critical plan `covered == total` |
 | manual-open | Blocking TO_RUN cleared | No TO_RUN on release-blocking incomplete launches |
@@ -16,7 +16,7 @@ GO only when **all** pass. Adjust thresholds with the user if needed.
 
 ## How to compute
 
-### Automation (per project)
+### Automated tests (per project)
 
 1. Take **latest** automation launch for the primary suite (or latest by `startTime` if one suite).
 2. Record: status, passed/failed/skipped, defects by type, end time → age in days.
