@@ -397,23 +397,21 @@
       margin-bottom: 0.35rem;
     }
     .video-slot {
-      border: 2px dashed #b7d7de;
-      border-radius: 14px;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(255,255,255,0.7), transparent 55%),
-        var(--rp-topaz-light);
-      min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem 1.5rem;
       margin: 1rem 0;
-      color: var(--rp-topaz);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #0b1e23;
+      border: 1px solid var(--rp-border);
+      box-shadow: var(--rp-shadow);
     }
-    .video-slot strong { display: block; font-size: 1.02rem; margin-bottom: 0.35rem; color: var(--rp-charcoal); }
-    .mcp-skill {
+    .video-slot video {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: top;
+      background: #0b1e23;
+    }
+    .mcp-tool {
       display: inline-block;
       font-size: 0.8rem;
       font-family: var(--font-mono);
@@ -654,6 +652,7 @@
       <div class="section-label">Overview</div>
       <ul>
         <li><a href="#intro">Introduction</a></li>
+        <li><a href="#walkthrough">Video walkthrough</a></li>
         <li><a href="#flow">How 26.1 fits together</a></li>
         <li><a href="#access">Access</a></li>
       </ul>
@@ -673,14 +672,13 @@
       <div class="section-label">MCP — same flow at scale</div>
       <ul>
         <li><a href="#mcp-setup">API key &amp; MCP setup</a></li>
-        <li><a href="#mcp-cases">Skill: test cases</a></li>
-        <li><a href="#mcp-planning">Skill: milestones &amp; plans</a></li>
-        <li><a href="#mcp-launches">Skill: manual launches</a></li>
+        <li><a href="#mcp-cases">Tools: test cases</a></li>
+        <li><a href="#mcp-planning">Tools: milestones &amp; plans</a></li>
+        <li><a href="#mcp-launches">Tools: manual launches</a></li>
         <li><a href="#dashboard">Portfolio dashboard</a></li>
       </ul>
       <div class="section-label">Close</div>
       <ul>
-        <li><a href="#walkthrough">Video walkthrough</a></li>
         <li><a href="#tips">Tips</a></li>
         <li><a href="#feedback">Your feedback</a></li>
       </ul>
@@ -709,6 +707,59 @@
       </header>
 
       <div class="content">
+
+        <section id="walkthrough">
+          <h2>Video walkthrough</h2>
+          <p>
+            Prefer a quick overview before you click through? Start here.
+            This short walkthrough covers the same story as the playbook: organization, preloaded streams, TMS by hand, MCP at scale, and the portfolio view.
+          </p>
+          <div class="video-slot">
+            <video controls preload="metadata" playsinline>
+              <source src="RPP_Beta_26_1.mp4" type="video/mp4">
+              Your browser does not support embedded video.
+              <a href="RPP_Beta_26_1.mp4">Download the walkthrough</a> instead.
+            </video>
+          </div>
+          <div class="shot">
+            <div class="shot-label">Shot 1 · Organization</div>
+            <p>
+              All Organizations → dedicated beta org (not Personal). Sidebar: Projects, Organization users.
+              Point out that people and access are managed here, then invite is optional on camera.
+            </p>
+          </div>
+          <div class="shot">
+            <div class="shot-label">Shot 2 · What is already there</div>
+            <p>
+              Stream A library: TMS-BOOK-001 (Steps) vs TMS-BOOK-004 (Text). Stream B: TMS-BOOK-010 / 013.
+              One smoke launch with Passed, one failure with a comment (TMS-BOOK-002 or 018).
+            </p>
+          </div>
+          <div class="shot">
+            <div class="shot-label">Shot 3 · You create Stream C</div>
+            <p>Projects → Create project → Stream C. Empty library on purpose.</p>
+          </div>
+          <div class="shot">
+            <div class="shot-label">Shot 4 · TMS by hand</div>
+            <p>
+              Stream C: folder Loyalty &amp; Reviews, TMS-LOY-001 and TMS-LOY-002, milestone + Loyalty smoke plan, start a manual launch, mark one case Passed.
+            </p>
+          </div>
+          <div class="shot">
+            <div class="shot-label">Shot 5 · Same path via MCP</div>
+            <p>
+              Profile → API key → Cursor MCP connected. Agent creates TMS-LOY-003, attaches it to the plan, opens a launch.
+              Cut to the UI to prove the artifacts exist.
+            </p>
+          </div>
+          <div class="shot">
+            <div class="shot-label">Shot 6 · Org dashboard</div>
+            <p>
+              Agent rolls A + B + C into Manual / Automated / Agentic. Stream C is thin — that is the point.
+              End on the Go / No-go line.
+            </p>
+          </div>
+        </section>
 
         <section id="flow">
           <h2>How 26.1 fits together</h2>
@@ -1159,12 +1210,21 @@
   }
 }</code></pre>
           <p>Replace <code>YOUR_API_KEY</code> with the key from Profile. When the server is connected, ask: “What ReportPortal tools are available?”</p>
+          <div class="callout callout-info">
+            <strong>MCP tools vs Agent Skills</strong>
+            The next three steps use <strong>MCP tools</strong> — atomic API calls such as <code>create_folder</code>.
+            An <strong>Agent Skill</strong> is different: instructions plus the tools the agent needs for one concrete task
+            (<a href="https://agentskills.io/home" target="_blank" rel="noopener">Agent Skills</a>).
+            The skill in this playbook is
+            <a href="https://github.com/reportportal/26.1-beta-testing/tree/main/.cursor/skills/reportportal-release-quality" target="_blank" rel="noopener"><code>reportportal-release-quality</code></a>
+            on the portfolio dashboard step.
+          </div>
         </section>
 
         <section id="mcp-cases">
-          <h2>MCP skill — test cases</h2>
+          <h2>MCP tools — test cases</h2>
           <p>
-            Skills: <span class="mcp-skill">create_folder</span> <span class="mcp-skill">create_test_case</span>
+            MCP tools: <span class="mcp-tool">create_folder</span> <span class="mcp-tool">create_test_case</span>
           </p>
           <dl class="value">
             <dt>Task</dt>
@@ -1186,9 +1246,9 @@ Reply with the folder id and the new case id.</code></pre>
         </section>
 
         <section id="mcp-planning">
-          <h2>MCP skill — milestones &amp; test plans</h2>
+          <h2>MCP tools — milestones &amp; test plans</h2>
           <p>
-            Skills: <span class="mcp-skill">create_milestone</span> <span class="mcp-skill">create_test_plan</span> <span class="mcp-skill">add_test_cases_to_test_plan</span>
+            MCP tools: <span class="mcp-tool">create_milestone</span> <span class="mcp-tool">create_test_plan</span> <span class="mcp-tool">add_test_cases_to_test_plan</span>
           </p>
           <dl class="value">
             <dt>Task</dt>
@@ -1209,9 +1269,9 @@ Reply with the milestone id, plan id, and the case ids on the plan.</code></pre>
         </section>
 
         <section id="mcp-launches">
-          <h2>MCP skill — manual launches</h2>
+          <h2>MCP tools — manual launches</h2>
           <p>
-            Skills: <span class="mcp-skill">create_manual_launch</span> <span class="mcp-skill">add_test_cases_to_manual_launch</span>
+            MCP tools: <span class="mcp-tool">create_manual_launch</span> <span class="mcp-tool">add_test_cases_to_manual_launch</span>
           </p>
           <dl class="value">
             <dt>Task</dt>
@@ -1283,55 +1343,6 @@ Widgets:
 - Prioritized next actions</code></pre>
         </section>
 
-        <section id="walkthrough">
-          <h2>Video walkthrough</h2>
-          <p>
-            This is the closing scenario for the demo recording (about 8–10 minutes). Sound and edit come later — the shots below are the story to film.
-          </p>
-          <div class="video-slot">
-            <strong>Video placeholder</strong>
-            Recording of the walkthrough below. Drop the file in when edit is ready.
-          </div>
-          <div class="shot">
-            <div class="shot-label">Shot 1 · Organization</div>
-            <p>
-              All Organizations → dedicated beta org (not Personal). Sidebar: Projects, Organization users.
-              Point out that people and access are managed here, then invite is optional on camera.
-            </p>
-          </div>
-          <div class="shot">
-            <div class="shot-label">Shot 2 · What is already there</div>
-            <p>
-              Stream A library: TMS-BOOK-001 (Steps) vs TMS-BOOK-004 (Text). Stream B: TMS-BOOK-010 / 013.
-              One smoke launch with Passed, one failure with a comment (TMS-BOOK-002 or 018).
-            </p>
-          </div>
-          <div class="shot">
-            <div class="shot-label">Shot 3 · You create Stream C</div>
-            <p>Projects → Create project → Stream C. Empty library on purpose.</p>
-          </div>
-          <div class="shot">
-            <div class="shot-label">Shot 4 · TMS by hand</div>
-            <p>
-              Stream C: folder Loyalty &amp; Reviews, TMS-LOY-001 and TMS-LOY-002, milestone + Loyalty smoke plan, start a manual launch, mark one case Passed.
-            </p>
-          </div>
-          <div class="shot">
-            <div class="shot-label">Shot 5 · Same path via MCP</div>
-            <p>
-              Profile → API key → Cursor MCP connected. Agent creates TMS-LOY-003, attaches it to the plan, opens a launch.
-              Cut to the UI to prove the artifacts exist.
-            </p>
-          </div>
-          <div class="shot">
-            <div class="shot-label">Shot 6 · Org dashboard</div>
-            <p>
-              Agent rolls A + B + C into Manual / Automated / Agentic. Stream C is thin — that is the point.
-              End on the Go / No-go line.
-            </p>
-          </div>
-        </section>
-
         <section id="tips">
           <h2>Tips</h2>
           <ul class="tips">
@@ -1354,7 +1365,7 @@ Widgets:
             <div class="feedback-card-header">
               <div class="feedback-card-header-text">
                 <strong>TMS 26.1 Beta Playbook &mdash; Feedback</strong>
-                <span>10 questions &middot; about 3&ndash;5 minutes</span>
+                <span>12 questions &middot; about 3&ndash;5 minutes</span>
               </div>
               <a class="feedback-header-link" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=0HIbtJ9OJkyKaflJ82fJHUVBsCG-HRFDpm7TgEOCrSpUMVlESDJORExNRjBPQTVHOEFHNlIzVUhISS4u" target="_blank" rel="noopener">
                 Open in new tab
