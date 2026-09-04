@@ -1135,6 +1135,7 @@ STREAM_B_CASES = [
 STREAMS = {
     "A": {
         "key": "A",
+        "project_slug": "stream-a",
         "collection_file": "stream-a-cancellations-mobile.postman_collection.json",
         "collection_name": "Stream A - Cancellations & Mobile",
         "launch_name": "Nightly regression - Cancellations & Mobile",
@@ -1170,6 +1171,7 @@ STREAMS = {
     },
     "B": {
         "key": "B",
+        "project_slug": "stream-b",
         "collection_file": "stream-b-booking-nfr.postman_collection.json",
         "collection_name": "Stream B - Booking Flow & NFR",
         "launch_name": "Nightly regression - Booking Flow & NFR",

@@ -10,6 +10,9 @@ Usage:
     python3 rp_stream_upload.py stream-a-cancellations-mobile.postman_collection.json
     python3 rp_stream_upload.py stream-b-booking-nfr.postman_collection.json --reset
     python3 rp_stream_upload.py --all
+
+RP_PROJECT / --project is the organization slug only (the part before the dot).
+The script appends the stream project: Stream A -> {org}.stream-a, Stream B -> {org}.stream-b.
 """
 
 from __future__ import annotations
@@ -631,9 +634,22 @@ def stream_for_collection(path: Path) -> dict:
              + ", ".join(s["collection_file"] for s in STREAMS.values()))
 
 
-def upload_collection(path: Path, url: str, project: str, api_key: str,
+def resolve_project_key(org: str, stream: dict) -> str:
+    """Build RP project key: {org}.{stream-a|stream-b}.
+
+    RP_PROJECT / --project is the organization slug (part before the dot).
+    A full key like org.stream-b is accepted and reduced to org first.
+    """
+    org_slug = org.strip().split(".", 1)[0]
+    if not org_slug:
+        sys.exit("RP_PROJECT / --project must be a non-empty organization slug.")
+    return f"{org_slug}.{stream['project_slug']}"
+
+
+def upload_collection(path: Path, url: str, org: str, api_key: str,
                       reset: bool) -> None:
     stream = stream_for_collection(path)
+    project = resolve_project_key(org, stream)
     collection = json.loads(path.read_text())
     if reset:
         delete_existing_launches(url, project, api_key, stream["launch_name"])
@@ -665,7 +681,9 @@ def main() -> None:
     parser.add_argument("--all", action="store_true",
                         help="Generate both collections and upload them")
     parser.add_argument("--url", default=os.environ.get("RP_URL"))
-    parser.add_argument("--project", default=os.environ.get("RP_PROJECT"))
+    parser.add_argument("--project", default=os.environ.get("RP_PROJECT"),
+                        help="Organization slug only (part before the dot). "
+                             "Stream A uploads to {org}.stream-a, Stream B to {org}.stream-b")
     parser.add_argument("--api-key", default=os.environ.get("RP_API_KEY"))
     parser.add_argument("--reset", action="store_true",
                         help="Delete existing launches with the same name before upload")
@@ -680,7 +698,8 @@ def main() -> None:
                               ("RP_API_KEY/--api-key", args.api_key)) if not v]
     if missing:
         sys.exit("Missing config: " + ", ".join(missing)
-                 + ". Fill .env next to this script (or Demo launch/.env) or pass CLI flags.")
+                 + ". Fill .env next to this script (or Demo launch/.env) or pass CLI flags. "
+                 "RP_PROJECT is the organization slug; stream-a/stream-b is appended per collection.")
 
     if args.all:
         paths = write_collections()

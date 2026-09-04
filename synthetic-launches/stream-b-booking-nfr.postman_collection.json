@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "c05813ea-75c7-41f4-b6c7-c698f7e267b9",
+    "_postman_id": "ae394cee-ba24-4bbe-9b79-7569fbebaed6",
     "name": "Stream B - Booking Flow & NFR",
     "description": "**Nightly regression - Booking Flow & NFR** \u2014 triggered by merge to `release/26.1.0`\n\n[CI job#991](https://ci.travelbook.example/job/stream-b-web/991/) \u2014 [diff 1a9f4c2 -> 8d31e70](https://git.travelbook.example/qa/web-tests/compare/1a9f4c2...8d31e70) \u2014 [Test plan TMS folder 92+94](https://tms.beta.reportportal.io) \u2014 [Staging](https://staging.travelbook.example)\n\nScope: Booking Flow (14), Non-functional (1). Runner: Playwright 1.47 / Chromium 126.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"

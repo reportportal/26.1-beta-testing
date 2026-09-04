@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "0edc9c66-0970-4231-a5b0-d94548f89919",
+    "_postman_id": "fbc328f3-cf07-4e0a-8e40-22d6fb5d4df4",
     "name": "Stream A - Cancellations & Mobile",
     "description": "**Nightly regression - Cancellations & Mobile** \u2014 triggered by merge to `release/26.1.0`\n\n[CI job#1842](https://ci.travelbook.example/job/stream-a-mobile/1842/) \u2014 [diff 7c2a91e -> 4e8b0c3](https://git.travelbook.example/qa/mobile-tests/compare/7c2a91e...4e8b0c3) \u2014 [Test plan TMS folder 93+95](https://tms.beta.reportportal.io) \u2014 [Staging](https://staging.travelbook.example)\n\nScope: Cancellations & Modifications (6), Mobile Booking (6). Runner: WebdriverIO 8 / Appium 2. Stack: Android + iOS + mobile web.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"

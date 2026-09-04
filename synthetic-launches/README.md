@@ -28,8 +28,18 @@ python3 -m pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Fill `RP_URL`, `RP_PROJECT`, and `RP_API_KEY` in `.env`. The uploader also falls back
-to [`../../Demo launch/.env`](../../Demo%20launch/.env) if that file exists.
+Fill `RP_URL`, `RP_PROJECT`, and `RP_API_KEY` in `.env`.
+
+`RP_PROJECT` is the **organization slug only** (the part before the dot). The uploader
+appends the stream project automatically:
+
+| Stream | Target project |
+|--------|----------------|
+| A | `{RP_PROJECT}.stream-a` |
+| B | `{RP_PROJECT}.stream-b` |
+
+The uploader also falls back to [`../../Demo launch/.env`](../../Demo%20launch/.env)
+if that file exists (only for keys not set locally).
 
 ## Run
 
