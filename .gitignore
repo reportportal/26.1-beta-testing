@@ -2,3 +2,4 @@
 .tmp/
 Playbook/playbook_video_generation/
 Playbook/playwright-recording/
+.DS_Store
