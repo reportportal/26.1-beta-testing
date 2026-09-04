@@ -709,54 +709,47 @@
       <div class="content">
 
         <section id="walkthrough">
-          <h2>Video walkthrough</h2>
-          <p>
-            Prefer a quick overview before you click through? Start here.
-            This short walkthrough covers the same story as the playbook: organization, preloaded streams, TMS by hand, MCP at scale, and the portfolio view.
-          </p>
-          <div class="video-slot">
-            <video controls preload="metadata" playsinline>
-              <source src="RPP_Beta_26_1.mp4" type="video/mp4">
-              Your browser does not support embedded video.
-              <a href="RPP_Beta_26_1.mp4">Download the walkthrough</a> instead.
-            </video>
-          </div>
           <div class="shot">
             <div class="shot-label">Shot 1 · Organization</div>
             <p>
-              All Organizations → dedicated beta org (not Personal). Sidebar: Projects, Organization users.
-              Point out that people and access are managed here, then invite is optional on camera.
+              Observe the new pages structure: top level All Organizations where dedicated beta org (not Personal) created for you.<br/>
+              Organization specifics inside: Projects, Organization users, Settings.
             </p>
           </div>
           <div class="shot">
             <div class="shot-label">Shot 2 · What is already there</div>
             <p>
-              Stream A library: TMS-BOOK-001 (Steps) vs TMS-BOOK-004 (Text). Stream B: TMS-BOOK-010 / 013.
-              One smoke launch with Passed, one failure with a comment (TMS-BOOK-002 or 018).
+              Stream A: Test Cases, Milestones and Test Plans for Search & Filters, Cancellations, Modifications, Mobile Booking flows.<br/>
+              Manual, Automation, Agentic launches.<br/>
+              <br/>
+              Stream B: Test Cases, Milestones and Test Plans for Booking Flow, Non-functional flows.<br/>
+              Manual, Automation launches.<br/>
             </p>
           </div>
           <div class="shot">
             <div class="shot-label">Shot 3 · You create Stream C</div>
-            <p>Projects → Create project → Stream C. Empty library on purpose.</p>
+            <p>Projects → Create project → Stream C.</p>
           </div>
           <div class="shot">
             <div class="shot-label">Shot 4 · TMS by hand</div>
             <p>
-              Stream C: folder Loyalty &amp; Reviews, TMS-LOY-001 and TMS-LOY-002, milestone + Loyalty smoke plan, start a manual launch, mark one case Passed.
+              Stream C:
+              Create Test Cases, Milestones and Test Plans for Loyalty & Reviews flow.<br/>
+              Start a manual launch, execute it.
             </p>
           </div>
           <div class="shot">
-            <div class="shot-label">Shot 5 · Same path via MCP</div>
+            <div class="shot-label">Shot 5 · Same path with AI via MCP</div>
             <p>
-              Profile → API key → Cursor MCP connected. Agent creates TMS-LOY-003, attaches it to the plan, opens a launch.
-              Cut to the UI to prove the artifacts exist.
+              Agent creates test case, adds it to the test plan, starts a launch.<br/>
+              Go to the UI to verify the artifacts exist.
             </p>
           </div>
           <div class="shot">
             <div class="shot-label">Shot 6 · Org dashboard</div>
             <p>
-              Agent rolls A + B + C into Manual / Automated / Agentic. Stream C is thin — that is the point.
-              End on the Go / No-go line.
+              AI agent rolls execution results from projects A + B + C into a unified portfolio visualization.<br/>
+              End on the Go / No-go line with a summary.
             </p>
           </div>
         </section>
@@ -780,7 +773,7 @@
             <dd>
               Each team owns their test cases and results independently — manual launches, automated and agentic test runs
               stay isolated per stream. Leadership gets a single portfolio visualization across the org: overall status,
-              per-project breakdown, risk identification — without access leaks. No fragmentation, no manual data merging.
+              per-project breakdown, risk identification — without access leaks.
             </dd>
           </dl>
           <div class="flow">
@@ -805,7 +798,7 @@
             <div class="flow-step">
               <div class="num">4</div>
               <strong>Repeat with MCP</strong>
-              <span>Same path, more volume</span>
+              <span>Same path, AI acts on your behalf</span>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-step">
@@ -1174,34 +1167,33 @@
         </section>
 
         <section id="mcp-setup">
-          <h2>API key &amp; MCP setup</h2>
+          <h2>Connect to the remote MCP server</h2>
           <dl class="value">
             <dt>Task</dt>
             <dd>Connect an AI assistant to this beta instance so it can read Stream A/B and create Stream C artifacts for you.</dd>
             <dt>How</dt>
             <dd>
-              An <strong>API key is required</strong> for MCP. Generate it after login: avatar → <span class="ui">My Profile</span> → <span class="ui">API Keys</span> → <span class="ui">Generate API Key</span>
+              An <strong>API key is required</strong> for MCP server. Generate it after login: avatar → <span class="ui">My Profile</span> → <span class="ui">API Keys</span> → <span class="ui">Generate API Key</span>
               (for example <code>mcp-beta</code>). Copy it immediately — it is shown only once.
               Token steps:
               <a href="https://reportportal.io/docs/log-data-in-reportportal/HowToGetAnAccessTokenInReportPortal" target="_blank" rel="noopener">How to get an access token</a>.
-              For 26.1, MCP setup lives in the server repo (product docs for this release are not published yet):
+              Detailed MCP server documentation:
               <a href="https://github.com/reportportal/reportportal-mcp-server" target="_blank" rel="noopener">reportportal/reportportal-mcp-server</a>.
               Endpoint: <a href="https://tms.beta.reportportal.io/mcp" target="_blank" rel="noopener">https://tms.beta.reportportal.io/mcp</a>.
             </dd>
             <dt>Result</dt>
-            <dd>The assistant can call TMS tools on your org. Do not commit the key or paste it into a shared chat.</dd>
+            <dd>The assistant can call TMS tools on your org.</dd>
           </dl>
 
           <h3>Cursor — <code>mcp.json</code></h3>
           <p>
-            Settings → Tools &amp; MCP → Add Custom MCP. Paste the block below.
-            Omit <code>X-Project</code> so the agent can query Stream A, Stream B, and Stream C via <code>projectKey</code>
-            (pattern: <code>your-org-slug.stream-a</code> — copy it from the project URL).
+            Settings → Customize → MCP → Add Custom MCP. Paste the block below.<br/>
+            Omit <code>X-Project</code> here so the agent can query Stream A, Stream B, and Stream C via <code>projectKey</code>
+            (pattern: <code>your-org-slug.stream-a</code> — You can find it in the general project settings).
           </p>
 <pre><code>{
   "mcpServers": {
     "ReportPortal": {
-      "type": "http",
       "url": "https://tms.beta.reportportal.io/mcp",
       "headers": {
         "Authorization": "Bearer YOUR_API_KEY"
@@ -1210,15 +1202,6 @@
   }
 }</code></pre>
           <p>Replace <code>YOUR_API_KEY</code> with the key from Profile. When the server is connected, ask: “What ReportPortal tools are available?”</p>
-          <div class="callout callout-info">
-            <strong>MCP tools vs Agent Skills</strong>
-            The next three steps use <strong>MCP tools</strong> — atomic API calls such as <code>create_folder</code>.
-            An <strong>Agent Skill</strong> is different: instructions plus the tools the agent needs for one concrete task
-            (<a href="https://agentskills.io/home" target="_blank" rel="noopener">Agent Skills</a>).
-            The skill in this playbook is
-            <a href="https://github.com/reportportal/26.1-beta-testing/tree/main/.cursor/skills/reportportal-release-quality" target="_blank" rel="noopener"><code>reportportal-release-quality</code></a>
-            on the portfolio dashboard step.
-          </div>
         </section>
 
         <section id="mcp-cases">
