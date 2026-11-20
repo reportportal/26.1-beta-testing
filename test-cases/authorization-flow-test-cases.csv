@@ -1,0 +1,21 @@
+summary,description,priority,preconditions,requirements,test steps,expected result
+"Login with valid credentials","User signs in with a registered email and correct password","BLOCKER","A registered user account exists and is not locked","AUTH-001","Open the login page
+Enter a valid email and password
+Click Sign in","The login page is displayed
+The form accepts the credentials
+The user is redirected to the home page and the session is active"
+"Login with invalid password","User cannot sign in when the password is wrong","HIGH","A registered user account exists","AUTH-002","Open the login page
+Enter a valid email and an incorrect password
+Click Sign in","The login page is displayed
+The fields accept input
+An error message is shown and the user stays on the login page"
+"Login with empty fields","Validation when email or password is missing","MEDIUM","None","AUTH-003","Open the login page
+Leave email and password empty
+Click Sign in","The login page is displayed
+The fields are empty
+Validation errors are shown for required fields and no session is created"
+"Locked account","User with a locked account cannot sign in","LOW","The user account exists and is locked by an administrator","AUTH-004","Open the login page
+Enter the locked user's email and password
+Click Sign in","The login page is displayed
+The form accepts input
+A message indicates the account is locked and sign-in is denied"
